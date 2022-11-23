@@ -22,4 +22,9 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void test(View view) {
+        Intent intent = new Intent(this, CourseLineBuilder.class);
+        startActivity(intent);
+    }
+
 }
