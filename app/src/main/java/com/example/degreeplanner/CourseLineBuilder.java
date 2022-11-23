@@ -2,6 +2,7 @@ package com.example.degreeplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,11 @@ public class CourseLineBuilder extends AppCompatActivity {
     AutoCompleteTextView autoCompleteTxt;
     ArrayAdapter<String> adapterItems;
 
+    public void csca48() {
+        Intent intent = new Intent(this, CSCA48.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,10 @@ public class CourseLineBuilder extends AppCompatActivity {
                 String course = adapterView.getItemAtPosition(i).toString();
                 Toast.makeText(getApplicationContext(),"Course: " + course,
                         Toast.LENGTH_SHORT).show();
+
+                if(course.equals("CSCA48")){
+                    csca48();
+                }
             }
         });
     }

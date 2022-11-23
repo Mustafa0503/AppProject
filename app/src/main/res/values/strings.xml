@@ -19,4 +19,13 @@
     <string name="forgot_password_click_here">Forgot Password? Click Here</string>
     <string name="a_name">DropDownMenu</string>
     <string name="select">Select Course</string>
+    <string name="timeLine">Build TimeLine</string>
+    <string name="a48">CSCA48</string>
+    <string name="a48Desc">
+        Abstract data types and data structures for implementing them.
+        Linked data structures. Object Oriented Programming. Encapsulation
+        and information-hiding. Testing. Specifications. Analyzing the efficiency
+        of programs. Recursion.
+    </string>
+
 </resources>
