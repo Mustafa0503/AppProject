@@ -28,4 +28,14 @@
         of programs. Recursion.
     </string>
 
+    <string name="s1">
+        Timetable Builder
+    </string>
+
+    <string name="s2">
+        Quickly generate conflict-free timeline with all of your favourite courses.
+        Explore different course offerings and find what works best for your schedule.
+    </string>
+
+
 </resources>

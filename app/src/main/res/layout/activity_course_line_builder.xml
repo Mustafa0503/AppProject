@@ -24,9 +24,44 @@
             android:layout_height="wrap_content"
             android:inputType="none" />
 
+        <TextView
+            android:layout_width="204dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginRight="130dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/s1"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+        <TextView
+            android:layout_width="208dp"
+            android:layout_height="177dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="130dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/s2"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+
+
+
     </com.google.android.material.textfield.TextInputLayout>
 
 
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="114dp"
+        android:layout_height="160dp"
+        android:layout_weight="1"
+        app:layout_anchor="@+id/textInputLayout"
+        app:layout_anchorGravity="center"
+        app:srcCompat="@android:drawable/ic_menu_today" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
