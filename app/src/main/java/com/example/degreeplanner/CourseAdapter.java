@@ -22,6 +22,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     ArrayList<String > arrayList_0 = new ArrayList<>();
     public CourseAdapter(Context context, ArrayList<String> arrayList, CourseListener courseListener) {
         this.context = context;
+
         this.arrayList = arrayList;
         this.courseListener = courseListener;
     }
