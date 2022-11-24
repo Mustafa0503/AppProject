@@ -16,11 +16,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+//    public void logout(View view) {
+//        FirebaseAuth.getInstance().signOut();
+//        startActivity(new Intent(getApplicationContext(), Login.class));
+//        finish();
+//    }
     public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), Login.class));
-        finish();
-    }
+    FirebaseAuth.getInstance().signOut();
+    startActivity(new Intent(getApplicationContext(), courseSelection.class));
+    finish();
+}
 
     public void test(View view) {
         Intent intent = new Intent(this, CourseLineBuilder.class);
