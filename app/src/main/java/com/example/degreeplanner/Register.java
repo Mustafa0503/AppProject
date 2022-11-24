@@ -21,8 +21,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+
+import kotlin.collections.UCollectionsKt;
 
 public class Register extends AppCompatActivity {
 
@@ -31,6 +38,9 @@ public class Register extends AppCompatActivity {
     TextView mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
+    String userID;
+    FirebaseFirestore fstore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +55,7 @@ public class Register extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.createText);
 
         fAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
         if (fAuth.getCurrentUser() != null) {
@@ -56,6 +67,8 @@ public class Register extends AppCompatActivity {
             String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
 
+            String fullName = mFullname.getText().toString();
+            //String phone = mPhone
             if (TextUtils.isEmpty(email)) {
                 mEmail.setError("Email is required");
                 return;
@@ -73,6 +86,18 @@ public class Register extends AppCompatActivity {
             fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
                     Toast.makeText(Register.this, "User Created", Toast.LENGTH_SHORT).show();
+                    userID = fAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference = fstore.collection("users").document(userID);
+                    Map<String,Object> user = new HashMap<>();
+                    user.put("fName", fullName);
+                    user.put("email", email);
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d("TAG", "onSuccess: user profile is created for "+ userID);
+                        }
+                    });
+
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }else{
                     Toast.makeText(Register.this, "Error!"+ Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
