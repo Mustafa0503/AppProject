@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_dynamic_primary90"
-    tools:context=".MainActivity">
+    tools:context=".Profile">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -36,13 +36,15 @@
         app:cardCornerRadius="16dp">
 
         <ImageButton
-            android:id="@+id/imageButton11"
+            android:id="@+id/profilebtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:background="#00000000"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/img_5" />
+            app:srcCompat="@drawable/img_5"
+            android:onClick="openProfile"
+            />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
