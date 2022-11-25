@@ -13,20 +13,31 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class select extends AppCompatActivity {
 
     List<String> takenCourses;
     ListView listViewData;
-
+    String userID;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fstore ;
     ArrayAdapter<String> adapter;
-    String[] arrayPeliculas = {"Select all","CSCA67","CSCB36","CSCB63","CSCA08", "CSCA48","CSCB09","CSCB07",
+    String[] arrayPeliculas = {"Select all","CSCA67","CSCA67","CSCA67","CSCA67","CSCA67","CSCB36","CSCB36","CSCB36","CSCB36","CSCB63","CSCA08", "CSCA48","CSCB09","CSCB07",
             "CSCB24","None of the above"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //fstore = FirebaseFirestore.getInstance();
         setContentView(R.layout.activity_select);
         TextView textView14 = (TextView)findViewById(R.id.textView14);
         textView14.setPaintFlags(textView14.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
@@ -57,7 +68,7 @@ public class select extends AppCompatActivity {
                 listViewData.setItemChecked(i, true);
             }
         }
-        else if(listViewData.isItemChecked(9))
+        else if(listViewData.isItemChecked(listViewData.getCount()-1))
         {
             for(int i=1;i<listViewData.getCount();i++) {
                 listViewData.setItemChecked(i, false);
@@ -68,28 +79,43 @@ public class select extends AppCompatActivity {
             for(int i=0;i<listViewData.getCount();i++){
                 if(listViewData.isItemChecked(i)){
                     if(i==0){
-                        itemSelected+=listViewData.getItemAtPosition(1)+"\n";
-                        itemSelected+=listViewData.getItemAtPosition(2)+"\n";
-                        itemSelected+=listViewData.getItemAtPosition(3)+"\n";
-                        itemSelected+=listViewData.getItemAtPosition(4)+"\n";
-                        itemSelected+=listViewData.getItemAtPosition(5)+"\n";
-                        itemSelected+=listViewData.getItemAtPosition(6)+"\n";
-                        itemSelected+=listViewData.getItemAtPosition(7)+"\n";
-                        itemSelected+=listViewData.getItemAtPosition(8)+"\n";
+                        for(int j=1;j<listViewData.getCount()-1;j++)
+                        {
+                            itemSelected+=listViewData.getItemAtPosition(j)+"\n";
+                        }
+
                         break;
                     }
-                    itemSelected+=listViewData.getItemAtPosition(i)+"\n";
+                    itemSelected+=listViewData.getItemAtPosition(i)+", ";
                 }
             }
-            Toast.makeText(this,itemSelected, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,itemSelected, Toast.LENGTH_LONG).show();
         }
         if(listViewData.getCount()!=0)
         {
             takenCourses = new ArrayList<String>();
             for(int i=0;i<listViewData.getCount();i++){
-                takenCourses.add(listViewData.getItemAtPosition(i).toString());
+                if(listViewData.isItemChecked(i))
+                {
+                    takenCourses.add(listViewData.getItemAtPosition(i).toString());
+                }
+               // takenCourses.add(listViewData.getItemAtPosition(i).toString());
             }
         }
+       // fAuth=FirebaseAuth.getInstance();
+        //userID = fAuth.getCurrentUser().getUid();
+        // DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document("JEKEYSyvFNcJy3wqnJIROHMwSb53");
+        //documentReference.update("courses","takenCourses");
+
+
+        //FirebaseFirestore fstore = FirebaseFirestore.getInstance();
+//        Map<String,Object> crs = new HashMap<>();
+//        crs.put("courses", takenCourses);
+//        crs.put("fName", "abc");
+      //  documentReference.update(crs);
+        //documentReference.update(crs);
+       // fstore.collection("user").document("courses").set(crs, SetOptions.merge())
+       // documentReference.set(crs);
         return super.onOptionsItemSelected(item);
     }
 }
