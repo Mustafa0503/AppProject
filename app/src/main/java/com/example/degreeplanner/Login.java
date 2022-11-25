@@ -34,7 +34,6 @@ public class Login extends AppCompatActivity {
     TextView mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
-    FirebaseAuth authResult;
     FirebaseFirestore fStore;
 
 
@@ -50,19 +49,6 @@ public class Login extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar2);
         forgotTextLink = findViewById(R.id.forgotpassword);
-        //checkField(mEmail);
-        //checkField(mPassword);
-        // Public boolean checkField ( EditText textField){
-        // if ( textField.getText().toString().isEmpty()){
-        // textField.setError("Error");
-        //valid=false;
-        // }else{
-        // valid =true;
-        //}
-        //return valid;
-    //}
-        //}
-
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,21 +69,19 @@ public class Login extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 // authenticate
 
-                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            checkUserAccessLevel(authResult.getUser().getUid());
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        } else {
-                            Toast.makeText(Login.this, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
+                    public void onSuccess(AuthResult authResult) {
+                        Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                        checkUserAccessLevel(authResult.getUser().getUid());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Login.this, "Error" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
-
-
 
             }
         });
@@ -106,6 +90,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Register.class));
+                finish();
             }
         });
         forgotTextLink.setOnClickListener(new View.OnClickListener() {
@@ -146,20 +131,18 @@ public class Login extends AppCompatActivity {
         });
     }
     private void checkUserAccessLevel(String uid){
-        DocumentReference df=fStore.collection("Users").document(uid);
+        DocumentReference df=fStore.collection("users").document(uid);
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                //Log.d(TAG,"onSuccess:"+documentSnapshot.getData());
+                Log.d("TAG", "OnSuccess" +documentSnapshot.getData());
                 // to identify the user
                 if(documentSnapshot.getString("isAdmin")!=null){
                     // user is an admin
-
-
                     startActivity(new Intent(getApplicationContext(),Admin.class));
                     finish();
                 }
-                if( documentSnapshot.getString("isUser")!=null){
+                if(documentSnapshot.getString("isStudent")!=null){
                     // user is a student
                     startActivity((new Intent(getApplicationContext(),MainActivity.class)));
                     finish();
@@ -175,8 +158,28 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
+            DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if(documentSnapshot.getString("isAdmin") != null){
+                        startActivity(new Intent(getApplicationContext(), Admin.class));
+                        finish();
+                    }
+                    if(documentSnapshot.getString("isStudent") != null){
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            });
         }
     }
 }
