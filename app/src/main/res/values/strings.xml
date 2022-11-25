@@ -37,5 +37,12 @@
         Explore different course offerings and find what works best for your schedule.
     </string>
 
+    <string name="s3">
+        Generate TimeLine
+    </string>
+
+    <string name="col1">Session</string>
+    <string name="col2">Course</string>
+    <string name="s4">My TimeLine</string>
 
 </resources>
