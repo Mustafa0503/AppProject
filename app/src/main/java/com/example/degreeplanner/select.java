@@ -36,7 +36,7 @@ public class select extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     String[] arrayPeliculas = {"Select all","CSCA67","CSCA67","CSCA67","CSCA67","CSCA67","CSCB36","CSCB36","CSCB36","CSCB36","CSCB63","CSCA08", "CSCA48","CSCB09","CSCB07",
             "CSCB24","None of the above"};
-    Button finishbtn = findViewById(R.id.et_name);
+    //Button finishbtn = findViewById(R.id.et_name);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
