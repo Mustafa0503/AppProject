@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseDatabase.getInstance().getReference().child("COURSES").child("CSCA48");
     }
 
     public void openProfile(View view) {
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
 //        finish();
 //    }
+
 
 
 }

@@ -120,7 +120,7 @@ public class Register extends AppCompatActivity {
                 }
 
                 if (isStudentBox.isChecked()) {
-                    startActivity(new Intent(getApplicationContext(), select.class));
+                    startActivity(new Intent(getApplicationContext(), CourseLineBuilder.class));
                     finish();
                 }
             }).addOnFailureListener(e -> {
