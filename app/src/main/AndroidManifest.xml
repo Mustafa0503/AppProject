@@ -56,6 +56,20 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".select"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ProfilePage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Register"
             android:exported="true">
             <intent-filter>
