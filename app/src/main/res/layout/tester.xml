@@ -1,32 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/material_dynamic_primary90"
+    >
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="421dp"
+        android:layout_height="182dp"
+        android:background="@drawable/dashboard_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.SearchView
+        android:layout_width="363dp"
+        android:layout_height="38dp"
+        android:background="@drawable/backgroundd"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122">
+
+    </androidx.appcompat.widget.SearchView>
+
+    <ImageButton
+        android:id="@+id/profilebtn"
+        android:layout_width="170dp"
+        android:layout_height="160dp"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/Prepwell"
+        android:onClick="openProfile"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.359"
+        app:srcCompat="@drawable/img_5" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="170dp"
+        android:layout_height="160dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.422"
+        app:layout_constraintStart_toEndOf="@+id/profilebtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.359"
+        app:srcCompat="@drawable/img_1" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="170dp"
+        android:layout_height="160dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:layout_constraintVertical_bias="0.067"
+        app:srcCompat="@drawable/helpimgbtn" />
 
     <ImageButton
         android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="195dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="417dp"
+        android:layout_width="170dp"
+        android:layout_height="160dp"
+        android:background="#00000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilebtn"
+        app:layout_constraintVertical_bias="0.067"
         app:srcCompat="@drawable/takencrsbtn" />
+
+    <Button
+        android:id="@+id/logoutt"
+        android:layout_width="235dp"
+        android:layout_height="56dp"
+        android:background="@color/purple_700"
+        android:onClick="logout"
+        android:text="Logout"
+        android:textColor="#FBFBFB"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.916" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="203dp"
-        android:layout_height="58dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="406dp"
-        android:background="@color/white"
-        android:text="Add Courses"
-        android:textAlignment="center"
-        android:textColor="@color/purple_700"
-        android:textSize="25dp" />
+        android:layout_width="280dp"
+        android:layout_height="54dp"
+        android:text="Hello Student!"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.198"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045" />
 
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 
