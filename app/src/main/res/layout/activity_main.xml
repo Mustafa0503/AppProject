@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_dynamic_primary90"
-    tools:context=".Profile">
+    tools:context=".MainActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -33,7 +33,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="219dp"
         android:layout_marginBottom="340dp"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/profilebtn"
@@ -43,31 +46,39 @@
             android:background="#00000000"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/img_5"
-            android:onClick="openProfile"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="215dp"
         android:layout_marginTop="413dp"
         android:layout_marginEnd="46dp"
         android:layout_marginBottom="170dp"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/imageButton10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:background="#00000000"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/helpimgbtn"
-            tools:layout_conversion_absoluteHeight="202dp"
-            tools:layout_conversion_absoluteWidth="174dp"
-            android:background="#00000000"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -77,7 +88,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="216dp"
         android:layout_marginBottom="169dp"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/imageButton9"
@@ -86,7 +100,10 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/takencrsbtn"
-            android:background="#00000000"/>
+            android:background="#00000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -96,7 +113,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="45dp"
         android:layout_marginBottom="339dp"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/imageButton8"
@@ -111,7 +131,11 @@
             android:background="#00000000"
             android:onClick="test"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/img_1" />
+            app:srcCompat="@drawable/img_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
     </androidx.cardview.widget.CardView>
 
     <Button
@@ -128,22 +152,27 @@
         android:onClick="logout"
         android:text="Logout"
         android:textColor="#FBFBFB"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="303dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="26dp"
         android:layout_marginEnd="83dp"
         android:layout_marginBottom="666dp"
         android:text="Hello Student!"
         android:textColor="@color/white"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </RelativeLayout>
-
-
-
-
