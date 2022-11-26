@@ -34,10 +34,11 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public void dashboard(View view){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
+//    public void dashboard(View view){
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
+
 
 }

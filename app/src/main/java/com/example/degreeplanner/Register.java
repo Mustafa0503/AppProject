@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,6 +74,7 @@ public class Register extends AppCompatActivity {
             String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
             String fullName = mFullname.getText().toString();
+            ArrayList courses = new ArrayList<String>();
 
             // checkbox validation
             if (!(isAdminBox.isChecked() || isStudentBox.isChecked())) {
@@ -101,6 +103,7 @@ public class Register extends AppCompatActivity {
                 Map<String, Object> user = new HashMap<>();
                 user.put("fName", fullName);
                 user.put("email", email);
+                user.put("courses", courses);
                 // specify admin
                 if (isAdminBox.isChecked()) {
                     user.put("isAdmin", "0");
