@@ -7,19 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
+public class studentDash extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        FirebaseDatabase.getInstance().getReference().child("COURSES").child("CSCA48");
+        setContentView(R.layout.activity_student_dash);
     }
 
-    public void openProfile(View view) {
-        Intent intent = new Intent(this, ProfilePage.class);
+    public void openProfile(View view){
+        Intent intent = new Intent(this, adminDash.class);
         startActivity(intent);
         finish();
     }
@@ -35,13 +33,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-//    public void dashboard(View view){
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
-
-
-
 }
