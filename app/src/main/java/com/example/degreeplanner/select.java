@@ -3,10 +3,12 @@ package com.example.degreeplanner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -34,6 +36,7 @@ public class select extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     String[] arrayPeliculas = {"Select all","CSCA67","CSCA67","CSCA67","CSCA67","CSCA67","CSCB36","CSCB36","CSCB36","CSCB36","CSCB63","CSCA08", "CSCA48","CSCB09","CSCB07",
             "CSCB24","None of the above"};
+    Button finishbtn = findViewById(R.id.et_name);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,5 +120,10 @@ public class select extends AppCompatActivity {
        // fstore.collection("user").document("courses").set(crs, SetOptions.merge())
        // documentReference.set(crs);
         return super.onOptionsItemSelected(item);
+    }
+    public void finish(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
