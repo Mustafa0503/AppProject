@@ -1,37 +1,26 @@
 package com.example.degreeplanner;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import kotlin.collections.UCollectionsKt;
 
 public class Register extends AppCompatActivity {
 
@@ -64,21 +53,15 @@ public class Register extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         // check checkboxes :)
-        isStudentBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (compoundButton.isChecked()) {
-                    isAdminBox.setChecked(false);
-                }
+        isStudentBox.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                isAdminBox.setChecked(false);
             }
         });
 
-        isAdminBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (compoundButton.isChecked()) {
-                    isStudentBox.setChecked(false);
-                }
+        isAdminBox.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                isStudentBox.setChecked(false);
             }
         });
 
@@ -91,6 +74,7 @@ public class Register extends AppCompatActivity {
             String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
             String fullName = mFullname.getText().toString();
+            ArrayList courses = new ArrayList<String>();
 
             // checkbox validation
             if (!(isAdminBox.isChecked() || isStudentBox.isChecked())) {
@@ -112,46 +96,36 @@ public class Register extends AppCompatActivity {
 
             progressBar.setVisibility(View.VISIBLE);
 
-            fAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    Toast.makeText(Register.this, "Account Created", Toast.LENGTH_SHORT).show();
-                    userID = fAuth.getCurrentUser().getUid();
-                    DocumentReference documentReference = fstore.collection("users").document(userID);
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("fName", fullName);
-                    user.put("email", email);
-                    // specify admin
-                    if (isAdminBox.isChecked()) {
-                        user.put("isAdmin", "0");
-                    }
-                    if (isStudentBox.isChecked()) {
-                        user.put("isStudent", "1");
-                    }
-                    documentReference.set(user);
-                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Log.d("TAG", "onSuccess: user profile is created for " + userID);
-                        }
-                    });
-
-                    if (isAdminBox.isChecked()) {
-                        startActivity(new Intent(getApplicationContext(), adminDash.class));
-                        finish();
-                    }
-
-                    if (isStudentBox.isChecked()) {
-                        startActivity(new Intent(getApplicationContext(), studentDash.class));
-                        finish();
-                    }
+            fAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+                Toast.makeText(Register.this, "Account Created", Toast.LENGTH_SHORT).show();
+                userID = fAuth.getCurrentUser().getUid();
+                DocumentReference documentReference = fstore.collection("users").document(userID);
+                Map<String, Object> user = new HashMap<>();
+                user.put("fName", fullName);
+                user.put("email", email);
+                user.put("courses", courses);
+                // specify admin
+                if (isAdminBox.isChecked()) {
+                    user.put("isAdmin", "0");
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Register.this, "Error!" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                if (isStudentBox.isChecked()) {
+                    user.put("isStudent", "1");
                 }
+                documentReference.set(user);
+                documentReference.set(user).addOnSuccessListener(unused -> Log.d("TAG", "onSuccess: user profile is created for " + userID));
+
+                if (isAdminBox.isChecked()) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                    finish();
+                }
+
+                if (isStudentBox.isChecked()) {
+                    startActivity(new Intent(getApplicationContext(), select.class));
+                    finish();
+                }
+            }).addOnFailureListener(e -> {
+                Toast.makeText(Register.this, "Error!" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             });
         });
         mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));

@@ -27,8 +27,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="200dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="40dp"
-        android:background="@color/transp">
+        android:layout_marginBottom="40dp">
 
         <TableRow android:background="@color/colorGreen">
 
