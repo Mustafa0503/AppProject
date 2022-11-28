@@ -74,7 +74,7 @@
         android:layout_width="170dp"
         android:layout_height="160dp"
         android:background="#FFFFFF"
-        android:onClick="openProfile"
+        android:onClick="openAsk"
         android:contentDescription="Need help?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
