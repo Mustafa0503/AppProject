@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ProfilePage">
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_height="61dp"
         android:text="404 Error"
         android:textSize="40dp"
-
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.725"
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:text="This page does not exist"
         android:textSize="25dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.424"
@@ -50,7 +52,7 @@
         android:layout_height="62dp"
         android:text="Back"
 
-        android:textColor="#535252"
+        android:textColor="@color/white"
         android:textSize="30dp"
         android:onClick="gg"
         app:layout_constraintBottom_toBottomOf="parent"

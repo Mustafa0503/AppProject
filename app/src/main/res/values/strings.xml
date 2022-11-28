@@ -45,5 +45,7 @@
     <string name="col1">Session</string>
     <string name="col2">Course</string>
     <string name="s4">My TimeLine</string>
-
+    <string name="pfp">My Profile</string>
+    <string name="changepfp">Change Profile Photo</string>
+    <string name="re">Return to Dashboard</string>
 </resources>
