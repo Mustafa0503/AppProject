@@ -26,4 +26,14 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    public void openAsk(View view) {
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
+        finish();
+    }
+    public void error(View view) {
+        Intent intent = new Intent(this, Error404.class);
+        startActivity(intent);
+        finish();
+    }
 }
