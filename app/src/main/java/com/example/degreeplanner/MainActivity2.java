@@ -20,4 +20,20 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
+
+    public void addcourse(View view) {
+        Intent intent = new Intent(this, Courses.class);
+        startActivity(intent);
+        finish();
+    }
+    public void openAsk(View view) {
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
+        finish();
+    }
+    public void error(View view) {
+        Intent intent = new Intent(this, Error404.class);
+        startActivity(intent);
+        finish();
+    }
 }
