@@ -39,8 +39,8 @@ public class select extends AppCompatActivity {
     FirebaseFirestore fstore ;
     ArrayAdapter<String> adapter;
 
-    String[] arrayPeliculas = {"Select all","CSCA67","CSCA67","CSCA86","CSCA88",
-            "CSCA48","CSCB40","CSCB50","CSCB60","CSCB36","CSCB63","CSCA08",
+    String[] arrayPeliculas = {"Select all","CSCA67","CSCA86","CSCA88",
+            "CSCB40","CSCB50","CSCB60","CSCB36","CSCB63","CSCA08",
             "CSCA48","CSCB09","CSCB07",
             "CSCB24","None of the above"};
     //Button finishbtn = findViewById(R.id.et_name);
