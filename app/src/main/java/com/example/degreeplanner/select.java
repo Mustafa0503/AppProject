@@ -15,8 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -31,10 +35,13 @@ public class select extends AppCompatActivity {
     List<String> takenCourses;
     ListView listViewData;
     String userID;
-    FirebaseAuth fAuth;
+    FirebaseAuth fAuth= FirebaseAuth.getInstance();
     FirebaseFirestore fstore ;
     ArrayAdapter<String> adapter;
-    String[] arrayPeliculas = {"Select all","CSCA67","CSCA67","CSCA67","CSCA67","CSCA67","CSCB36","CSCB36","CSCB36","CSCB36","CSCB63","CSCA08", "CSCA48","CSCB09","CSCB07",
+
+    String[] arrayPeliculas = {"Select all","CSCA67","CSCA86","CSCA88",
+            "CSCB40","CSCB50","CSCB60","CSCB36","CSCB63","CSCA08",
+            "CSCA48","CSCB09","CSCB07",
             "CSCB24","None of the above"};
     //Button finishbtn = findViewById(R.id.et_name);
     @Override
@@ -64,12 +71,14 @@ public class select extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        takenCourses = new ArrayList<String>();
         if(listViewData.isItemChecked(0))
         {
-            listViewData.setItemChecked(9, false);
+            listViewData.setItemChecked(listViewData.getCount()-1, false);
             for(int i=0;i<listViewData.getCount()-1;i++) {
                 listViewData.setItemChecked(i, true);
             }
+
         }
         else if(listViewData.isItemChecked(listViewData.getCount()-1))
         {
@@ -96,19 +105,84 @@ public class select extends AppCompatActivity {
         }
         if(listViewData.getCount()!=0)
         {
-            takenCourses = new ArrayList<String>();
+
             for(int i=0;i<listViewData.getCount();i++){
                 if(listViewData.isItemChecked(i))
                 {
-                    takenCourses.add(listViewData.getItemAtPosition(i).toString());
+                    if(i!=0)
+                        takenCourses.add(listViewData.getItemAtPosition(i).toString());
                 }
                // takenCourses.add(listViewData.getItemAtPosition(i).toString());
             }
         }
-       // fAuth=FirebaseAuth.getInstance();
-        //userID = fAuth.getCurrentUser().getUid();
-        // DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document("JEKEYSyvFNcJy3wqnJIROHMwSb53");
-        //documentReference.update("courses","takenCourses");
+        //fstore.collection("users").whereEqualTo("courses",userID).get() ;
+        userID = fAuth.getCurrentUser().getUid();
+
+        //List<String> old =  (List<String>)fstore.collection("users").whereEqualTo("courses",userID).get();
+
+
+        FirebaseFirestore.getInstance().collection("users")
+                .document(userID).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        DocumentSnapshot document = task.getResult();
+                        List<String> old = (List<String>) document.get("courses");
+                        if (!old.isEmpty())
+                        {
+
+
+                            for (int o = 0; o < old.size(); o++) {
+                                if (!takenCourses.contains(old.get(o))) {
+                                    takenCourses.add(old.get(o));
+
+
+                                }
+
+
+                            }
+                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+                            documentReference.update("courses", takenCourses);
+
+                        }else{
+                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+                            documentReference.update("courses",takenCourses);
+                        }
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //FirebaseFirestore fstore = FirebaseFirestore.getInstance();
