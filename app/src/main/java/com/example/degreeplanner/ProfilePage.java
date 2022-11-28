@@ -28,12 +28,16 @@ public class ProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
     }
-
-
-    public void openProfile(View view){
-        Intent intent = new Intent(this, ProfilePage.class);
+    public void gg(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
+
+//    public void openProfile(View view){
+//        Intent intent = new Intent(this, ProfilePage.class);
+//        startActivity(intent);
+//        finish();
+//    }
 
     }
