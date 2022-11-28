@@ -20,4 +20,10 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
+
+    public void addcourse(View view) {
+        Intent intent = new Intent(this, Courses.class);
+        startActivity(intent);
+        finish();
+    }
 }
