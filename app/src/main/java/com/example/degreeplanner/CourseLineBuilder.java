@@ -23,6 +23,12 @@ public class CourseLineBuilder extends AppCompatActivity {
         finish();
     }
 
+    public void generateTime(View view){
+        Intent b1 = new Intent(this, line.class);
+        startActivity(b1);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,9 @@ public class CourseLineBuilder extends AppCompatActivity {
                     csca48();
                 }
             }
+
         });
+
+
     }
 }
