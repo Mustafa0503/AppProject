@@ -60,4 +60,9 @@ public class takenCourseList extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    public void Return(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

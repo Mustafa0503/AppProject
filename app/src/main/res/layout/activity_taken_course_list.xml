@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="115dp"
         android:touchscreenBlocksFocus="false" />
 
     <Button
@@ -27,8 +27,22 @@
         android:layout_centerInParent="true"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:text="Add new courses"
-        android:onClick="AddNewCourses"/>
+        android:onClick="Return"
+        android:text="Return" />
+
+    <Button
+        android:id="@+id/btn_add2"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="55dp"
+        android:onClick="AddNewCourses"
+        android:text="Add new courses" />
+
     <TextView
         android:id="@+id/textView16"
         android:layout_width="238dp"
