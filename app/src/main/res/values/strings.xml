@@ -47,4 +47,5 @@
     <string name="s4">My TimeLine</string>
     <string name="pfp">My Profile</string>
     <string name="changepfp">Change Profile Photo</string>
+    <string name="re">Return to Dashboard</string>
 </resources>

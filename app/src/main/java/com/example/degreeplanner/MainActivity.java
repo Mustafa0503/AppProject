@@ -43,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void mainAct(View view){
+        Intent b1 = new Intent(this, MainActivity.class);
+        startActivity(b1);
+        finish();
+    }
+
+
 //    public void dashboard(View view){
 //        Intent intent = new Intent(this, MainActivity.class);
 //        startActivity(intent);

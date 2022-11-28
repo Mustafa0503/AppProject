@@ -115,4 +115,10 @@ public class pfp extends AppCompatActivity {
             }
         });
     }
+
+    public void mainAct(View view){
+        Intent b1 = new Intent(this, MainActivity.class);
+        startActivity(b1);
+        finish();
+    }
 }
