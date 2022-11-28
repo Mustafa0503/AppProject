@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Degree Planner</string>
+    <string name="done">done</string>
     <string name="logout">Logout</string>
     <string name="Logout">Logout</string>
     <string name="prepwell">PrepWell</string>
@@ -17,4 +18,34 @@
     <string name="log_in2">Log In</string>
     <string name="new_here_create_account">New Here? Create Account</string>
     <string name="forgot_password_click_here">Forgot Password? Click Here</string>
+    <string name="a_name">DropDownMenu</string>
+    <string name="select">Select Course</string>
+    <string name="timeLine">Build TimeLine</string>
+    <string name="a48">CSCA48</string>
+    <string name="a48Desc">
+        Abstract data types and data structures for implementing them.
+        Linked data structures. Object Oriented Programming. Encapsulation
+        and information-hiding. Testing. Specifications. Analyzing the efficiency
+        of programs. Recursion.
+    </string>
+
+    <string name="s1">
+        Timetable Builder
+    </string>
+
+    <string name="s2">
+        Quickly generate conflict-free timelines with all of your favourite courses.
+        Explore different course offerings and find what works best for your schedule.
+    </string>
+
+    <string name="s3">
+        Generate TimeLine
+    </string>
+
+    <string name="col1">Session</string>
+    <string name="col2">Course</string>
+    <string name="s4">My TimeLine</string>
+    <string name="pfp">My Profile</string>
+    <string name="changepfp">Change Profile Photo</string>
+    <string name="re">Return to Dashboard</string>
 </resources>
