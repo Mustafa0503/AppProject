@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openProfile(View view) {
-        Intent intent = new Intent(this, ProfilePage.class);
+        Intent intent = new Intent(this, pfp.class);
         startActivity(intent);
         finish();
     }
