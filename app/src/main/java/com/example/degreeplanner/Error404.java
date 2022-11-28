@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class Error404 extends AppCompatActivity {
-
+//gg
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
