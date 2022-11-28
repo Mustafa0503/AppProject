@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openProfile(View view) {
-        Intent intent = new Intent(this, ProfilePage.class);
+        Intent intent = new Intent(this, pfp.class);
         startActivity(intent);
         finish();
     }
@@ -42,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void mainAct(View view){
+        Intent b1 = new Intent(this, MainActivity.class);
+        startActivity(b1);
+        finish();
+    }
+
 
 //    public void dashboard(View view){
 //        Intent intent = new Intent(this, MainActivity.class);
