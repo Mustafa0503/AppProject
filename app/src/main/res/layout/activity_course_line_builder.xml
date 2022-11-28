@@ -11,11 +11,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:textAppearance="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:hint="@string/select">
-
 
         <AutoCompleteTextView
             android:id="@+id/auto_complete_txt"
@@ -70,4 +70,5 @@
         android:layout_marginBottom="20dp"
         android:onClick="generateTime"
         android:text="@string/s3" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
