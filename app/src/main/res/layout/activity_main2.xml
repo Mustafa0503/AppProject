@@ -72,7 +72,7 @@
         android:layout_width="170dp"
         android:layout_height="160dp"
         android:background="#FFFFFF"
-        android:onClick="openProfile"
+        android:onClick="error"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
@@ -93,7 +93,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilebtn"
         app:layout_constraintVertical_bias="0.067"
-        app:srcCompat="@drawable/addcrsbtn" />
+        app:srcCompat="@drawable/addcrsbtn"
+        android:onClick="addcourse"/>
 
     <Button
         android:id="@+id/logoutt"
