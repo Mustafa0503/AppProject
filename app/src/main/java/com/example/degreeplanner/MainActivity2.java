@@ -36,4 +36,10 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void openAdminCourse(View view) {
+        Intent intent = new Intent(this, adminCourse.class);
+        startActivity(intent);
+        finish();
+    }
 }
