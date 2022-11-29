@@ -28,7 +28,7 @@ public class CourseLineBuilder extends AppCompatActivity {
         startActivity(b1);
         finish();
     }
-
+//gg
     public void mainAct(View view){
         Intent b1 = new Intent(this, MainActivity.class);
         startActivity(b1);

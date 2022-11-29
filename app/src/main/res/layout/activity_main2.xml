@@ -83,6 +83,7 @@
 
     <ImageButton
         android:id="@+id/imageButton4"
+        android:onClick="openAdminCourse"
         android:layout_width="170dp"
         android:layout_height="160dp"
         android:scaleType="fitCenter"
@@ -94,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profilebtn"
         app:layout_constraintVertical_bias="0.067"
         app:srcCompat="@drawable/addcrsbtn"
-        android:onClick="openAdminCourse"/>
+        />
 
     <Button
         android:id="@+id/logoutt"

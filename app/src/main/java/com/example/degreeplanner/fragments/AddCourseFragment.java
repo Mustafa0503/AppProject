@@ -1,5 +1,6 @@
 package com.example.degreeplanner.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.degreeplanner.MainActivity;
 import com.example.degreeplanner.R;
 
 import java.util.ArrayList;
@@ -20,5 +22,6 @@ public class AddCourseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_course, container, false);
+
     }
 }
