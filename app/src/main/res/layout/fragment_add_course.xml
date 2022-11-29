@@ -15,10 +15,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        tools:layout_editor_absoluteX="63dp" />
+        app:layout_constraintVertical_bias="0.116" />
 
     <EditText
         android:id="@+id/courseName"
@@ -98,18 +98,30 @@
 
     <Button
         android:id="@+id/addBtn"
+        android:layout_width="317dp"
+        android:layout_height="53dp"
+        android:text="Add"
+        android:textColor="@color/white"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/preReqs"
-        app:layout_constraintVertical_bias="0.3"
-        android:layout_width="156dp"
-        android:layout_height="60dp"
-        android:text="Add"
-        android:textColor="@color/black"
+        app:layout_constraintVertical_bias="0.147" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="317dp"
+        android:layout_height="53dp"
+        android:text="Return"
         android:textSize="30dp"
-        tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="627dp" />
+        android:onClick="Return"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.898" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

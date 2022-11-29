@@ -86,4 +86,9 @@ public class Courses extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    public void Return(View view) {
+        Intent intent = new Intent(this, MainActivity2.class);
+        startActivity(intent);
+        finish();
+    }
 }
