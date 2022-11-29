@@ -14,10 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -67,24 +65,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
-       // if (fAuth.getCurrentUser() != null) {
-          //  startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            //finish();
-//            DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                @Override
-//                public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                    if(documentSnapshot.getString("isAdmin") != null){
-//                        startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-//                        finish();
-//                    }
-//                    if(documentSnapshot.getString("isStudent") != null){
-//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                        finish();
-//                    }
-//                }
-//            });
-       // }
+
 
 
 
