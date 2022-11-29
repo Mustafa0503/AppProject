@@ -70,12 +70,14 @@ public class Register extends AppCompatActivity {
             finish();
         }
 
+
+
         mRegisterBtn.setOnClickListener(v -> {
             String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
             String fullName = mFullname.getText().toString();
-            ArrayList courses = new ArrayList<String>();
 
+            ArrayList courses = new ArrayList<String>();
             // checkbox validation
             if (!(isAdminBox.isChecked() || isStudentBox.isChecked())) {
                 Toast.makeText(Register.this, "Select the Account Type", Toast.LENGTH_SHORT).show();
@@ -103,13 +105,14 @@ public class Register extends AppCompatActivity {
                 Map<String, Object> user = new HashMap<>();
                 user.put("fName", fullName);
                 user.put("email", email);
-                user.put("courses", courses);
+
                 // specify admin
                 if (isAdminBox.isChecked()) {
                     user.put("isAdmin", "0");
                 }
                 if (isStudentBox.isChecked()) {
                     user.put("isStudent", "1");
+                    user.put("courses", courses);
                 }
                 documentReference.set(user);
                 documentReference.set(user).addOnSuccessListener(unused -> Log.d("TAG", "onSuccess: user profile is created for " + userID));
