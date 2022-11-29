@@ -15,10 +15,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        tools:layout_editor_absoluteX="63dp" />
+        app:layout_constraintVertical_bias="0.101" />
 
     <EditText
         android:id="@+id/courseName"
@@ -111,5 +111,16 @@
         android:textSize="30dp"
         tools:layout_editor_absoluteX="127dp"
         tools:layout_editor_absoluteY="627dp" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="148dp"
+        android:layout_height="49dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.949" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
