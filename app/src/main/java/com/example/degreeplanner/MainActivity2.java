@@ -21,12 +21,6 @@ public class MainActivity2 extends AppCompatActivity {
         finish();
     }
 
-//    public void addcourse(View view) {
-//        Intent intent = new Intent(this, Courses.class);
-//        startActivity(intent);
-//        finish();
-//    }
-
     public void openAsk(View view) {
         Intent intent = new Intent(this, ProfilePage.class);
         startActivity(intent);
@@ -38,8 +32,14 @@ public class MainActivity2 extends AppCompatActivity {
         finish();
     }
 
-    public void openAdminCourse(View view) {
+    public void openAd(View view) {
         Intent intent = new Intent(this, adminCourse.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void addCourse(View view) {
+        Intent intent = new Intent(this, Courses.class);
         startActivity(intent);
         finish();
     }
