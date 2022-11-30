@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.helper.widget.MotionEffect;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -43,26 +44,50 @@ public class selectDeleteAdmin extends AppCompatActivity {
     String userID= fAuth.getCurrentUser().getUid();
     FirebaseFirestore fstore ;
     ArrayAdapter<String> adapter;
-    String[] arrayPeliculas = {"CSCA67","CSCA86","CSCA88",
-            "CSCB40","CSCB50","CSCB60","CSCB36","CSCB63","CSCA08",
-            "CSCA48","CSCB09","CSCB07",
-            "CSCB24"};
+    ArrayList<String> allCourses= new ArrayList<String>();
+
 //
     //Button finishbtn = findViewById(R.id.et_name);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseFirestore.getInstance().collection("course").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                // allC = new ArrayList<String>();
+                if (task.isSuccessful()) {
+                    // List<String> list = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        allCourses.add(document.getString("Course Code"));
+                    }
+
+                    rest();
+//                    arrayPeliculas=new String[allC.size()];
+//                    arrayPeliculas = allC.toArray(arrayPeliculas);
+
+                    //allC.add("djasndkj");
+                }
+                else {
+                    Log.d(MotionEffect.TAG, "Error getting documents: ", task.getException());
+                }
+
+            }
+        });
         //fstore = FirebaseFirestore.getInstance();
+
+
+
+
+    }
+    public void rest(){
         setContentView(R.layout.activity_select_delete_admin);
         TextView textDelete = (TextView)findViewById(R.id.textDelete);
         textDelete.setPaintFlags(textDelete.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         listViewData=findViewById(R.id.listView_data_delete);
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice,arrayPeliculas);
+                android.R.layout.simple_list_item_checked,allCourses);
         listViewData.setAdapter(adapter);
-
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
