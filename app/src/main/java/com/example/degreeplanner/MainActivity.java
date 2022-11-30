@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), Login.class));
+        startActivity(new Intent(getApplicationContext(), View.class));
         finish();
     }
 
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(b1);
         finish();
     }
+
 
 
 //    public void dashboard(View view){

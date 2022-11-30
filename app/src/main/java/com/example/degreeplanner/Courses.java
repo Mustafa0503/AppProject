@@ -81,8 +81,13 @@ public class Courses extends AppCompatActivity {
 //        });
     }
 
-    public void addcourse(View view) {
+    public void addCourse(View view) {
         Intent intent = new Intent(this, Courses.class);
+        startActivity(intent);
+        finish();
+    }
+    public void Return(View view) {
+        Intent intent = new Intent(this, MainActivity2.class);
         startActivity(intent);
         finish();
     }

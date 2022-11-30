@@ -65,10 +65,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }
+
 
 
 
@@ -131,6 +128,6 @@ public class Register extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             });
         });
-        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
+        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), View.class)));
     }
 }
