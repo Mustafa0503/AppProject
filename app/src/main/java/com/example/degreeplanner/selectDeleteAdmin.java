@@ -23,8 +23,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -119,11 +121,58 @@ public class selectDeleteAdmin extends AppCompatActivity {
                 // takenCourses.add(listViewData.getItemAtPosition(i).toString());
             }
         }
-        for(int i=0;i<selectedCourses.size();i++){
-            deleteData(selectedCourses.get(i));
 
+        for (int i = 0; i < selectedCourses.size(); i++) {
+            deleteData(selectedCourses.get(i));
+            String target = selectedCourses.get(i);
+            deletePre(target);
         }
 
+
+//        ArrayList test = new ArrayList<>();
+//        test.add("tf");
+//        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("course").document(courseID);
+//        documentReference.update("Prerequisites", test);
+//        FirebaseFirestore.getInstance().collection("course").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//
+//                // allC = new ArrayList<String>();
+//                if (task.isSuccessful()) {
+//                    // List<String> list = new ArrayList<>();
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                        ArrayList<String> pre = (ArrayList<String>) document.get("Prerequisites");
+//                        pre.add("TF");
+//                        for(int i=0;i<selectedCourses.size();i++)
+//                        {
+//                            if(pre.contains(selectedCourses.get(i))){
+//                                pre.remove(selectedCourses.get(i));
+//                                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("course").document(courseID);
+//                                documentReference.update("Prerequisites", pre);
+//                            }
+//                            else{
+//                                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("course").document(courseID);
+//                                documentReference.update("Prerequisites", pre);
+//                            }
+//                        }
+//                            //
+//
+//
+//
+//                    }
+//                    //                        allC.add("None of the above");
+//                    //                        use();
+//                    //                    arrayPeliculas=new String[allC.size()];
+//                    //                    arrayPeliculas = allC.toArray(arrayPeliculas);
+//
+//                    //allC.add("djasndkj");
+//                } else {
+//                    Log.d(MotionEffect.TAG, "Error getting documents: ", task.getException());
+//                }
+//
+//            }
+//        });
         //fstore.collection("users").whereEqualTo("courses",userID).get() ;
  //       userID = fAuth.getCurrentUser().getUid();
 
@@ -205,10 +254,35 @@ public class selectDeleteAdmin extends AppCompatActivity {
         // documentReference.set(crs);
         return super.onOptionsItemSelected(item);
     }
+    public void deletePre(String target){
+
+        FirebaseFirestore.getInstance().collection("course").whereArrayContains("Prerequisites", target).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                // allC = new ArrayList<String>();
+                if (task.isSuccessful()) {
+                    // List<String> list = new ArrayList<>();
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    CollectionReference Ref = db.collection("course");
+                    for(int i=0; i<task.getResult().getDocuments().size();i++)
+                    {
+                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(i);
+                        String documentID=documentSnapshot.getId();
+                        Ref.document(documentID).update("Prerequisites",FieldValue.arrayRemove(target));
+                    }
+
+
+
+                }
+            }
+        });
+    }
 
     public void deleteData(String target){
         FirebaseFirestore.getInstance().collection("course").whereEqualTo
-                ("Deleting: ", target).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                ("Course Code", target).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()&&!task.getResult().isEmpty())
