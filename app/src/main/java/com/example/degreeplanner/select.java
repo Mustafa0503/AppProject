@@ -1,11 +1,14 @@
 package com.example.degreeplanner;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.lang.reflect.Array;
@@ -38,11 +43,13 @@ public class select extends AppCompatActivity {
     FirebaseAuth fAuth= FirebaseAuth.getInstance();
     FirebaseFirestore fstore ;
     ArrayAdapter<String> adapter;
+    List<String> arrayPeliculas;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    String[] arrayPeliculas = {"Select all","CSCA67","CSCA86","CSCA88",
-            "CSCB40","CSCB50","CSCB60","CSCB36","CSCB63","CSCA08",
-            "CSCA48","CSCB09","CSCB07",
-            "CSCB24","None of the above"};
+//    String[] arrayPeliculas = {"Select all","CSCA67","CSCA86","CSCA88",
+//            "CSCB40","CSCB50","CSCB60","CSCB36","CSCB63","CSCA08",
+//            "CSCA48","CSCB09","CSCB07",
+//            "CSCB24","None of the above"};
     //Button finishbtn = findViewById(R.id.et_name);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +59,9 @@ public class select extends AppCompatActivity {
         TextView textView14 = (TextView)findViewById(R.id.textView14);
         textView14.setPaintFlags(textView14.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         listViewData=findViewById(R.id.listView_data);
-
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_multiple_choice,arrayPeliculas);
         listViewData.setAdapter(adapter);
-
 
     }
 
