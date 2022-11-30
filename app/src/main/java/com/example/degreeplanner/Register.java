@@ -128,6 +128,6 @@ public class Register extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             });
         });
-        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
+        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), View2.class)));
     }
 }
