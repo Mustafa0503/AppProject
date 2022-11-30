@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Degree Planner</string>
     <string name="done">done</string>
+    <string name="delete">delete</string>
     <string name="logout">Logout</string>
     <string name="Logout">Logout</string>
     <string name="prepwell">PrepWell</string>
