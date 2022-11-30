@@ -24,29 +24,28 @@
 
     <Button
         android:id="@+id/btn_add"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-
         android:layout_centerInParent="true"
-        android:layout_marginEnd="0dp"
+        android:layout_marginEnd="166dp"
         android:layout_marginBottom="0dp"
-
+        android:background="@drawable/returnbtnn"
         android:fontFamily="monospace"
         android:onClick="Return"
-        android:text="Return" />
+        android:text="home" />
 
     <Button
         android:id="@+id/btn_add2"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
 
         android:layout_centerInParent="true"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="69dp"
         android:onClick="AddNewCourses"
         android:text="Add new courses" />
 
