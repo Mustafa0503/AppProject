@@ -1,3 +1,4 @@
+
 package com.example.degreeplanner;
 
 import android.content.Intent;
@@ -32,8 +33,6 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-
-    //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +64,7 @@ public class Login extends AppCompatActivity {
 
             fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
                 Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+
                 if (FirebaseAuth.getInstance().getCurrentUser()!=null){
                 DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -120,54 +120,55 @@ public class Login extends AppCompatActivity {
             passwordResetDialog.create().show();
         });
     }
-//    private void checkUserAccessLevel(String uid){
-//
-//        DocumentReference df= fStore.collection("users").document(uid);
-//
-//        df.get().addOnSuccessListener(documentSnapshot -> {
-//            Log.d("TAG", "OnSuccess" +documentSnapshot.getData());
-//            // to identify the user
-//           if(documentSnapshot.getString("isAdmin") != null){
-//                // user is an admin
-//                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-//                finish();
-//           }
-//            if(documentSnapshot.getString("isStudent") != null){
-//                // user is a student
-//                startActivity((new Intent(getApplicationContext(), MainActivity.class)));
-//                finish();
-//
-//            }
-//        });
-//
-//    }
+    private void checkUserAccessLevel(String uid){
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-//            DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                @Override
-//                public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                    if(documentSnapshot.getString("isAdmin") != null){
-//                        startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-//                        finish();
-//                    }
-//                    if(documentSnapshot.getString("isStudent") != null){
-//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                        finish();
-//                    }
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    FirebaseAuth.getInstance().signOut();
-//                    startActivity(new Intent(getApplicationContext(), Login.class));
-//                }
-//            });
-//        }
-//    }
+        DocumentReference df= fStore.collection("users").document(uid);
+
+        df.get().addOnSuccessListener(documentSnapshot -> {
+            Log.d("TAG", "OnSuccess" +documentSnapshot.getData());
+            // to identify the user
+           if(documentSnapshot.getString("isAdmin") != null){
+                // user is an admin
+                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                finish();
+           }
+            if(documentSnapshot.getString("isStudent") != null){
+                // user is a student
+                startActivity((new Intent(getApplicationContext(), MainActivity.class)));
+                finish();
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+            DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if(documentSnapshot.getString("isAdmin") != null){
+                        startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                        finish();
+                    }
+                    if(documentSnapshot.getString("isStudent") != null){
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(), Login.class));
+                }
+            });
+        }
+    }
 
 }
+
 
