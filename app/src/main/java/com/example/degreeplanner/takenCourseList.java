@@ -73,7 +73,7 @@ public class takenCourseList extends AppCompatActivity {
 //        arrayList.add("CSCB30");
 
         //listView.setAdapter(arrayAdapter);
-
+        
     }
     public void AddNewCourses(View view) {
         Intent intent = new Intent(this, select.class);
