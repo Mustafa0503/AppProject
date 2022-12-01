@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class Model extends AppCompatActivity implements Contract.Model{
 
-    EditText mEmail, mPassword;
+
     Button mLoginBtn;
     TextView mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
@@ -56,6 +56,8 @@ public class Model extends AppCompatActivity implements Contract.Model{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        EditText mEmail = (EditText) findViewById(R.id.Email);
+        EditText mPassword = findViewById(R.id.password);
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
 

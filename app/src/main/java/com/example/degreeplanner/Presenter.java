@@ -21,50 +21,56 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter{
     private Contract.Model model;
     public Contract.View view;
     FirebaseAuth fAuth;
-    EditText mEmail = findViewById(R.id.Email);
-    EditText mPassword = findViewById(R.id.password);
-    Button mLoginBtn = findViewById(R.id.registerBtn);
-    String email = mEmail.getText().toString().trim();
-    String password = mPassword.getText().toString().trim();
+
+
+
 
     public Presenter(Contract.Model model, Contract.View view) {
         this.model = model;
         this.view = view;
     }
 
-    public void login_btn(){
-        fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-            Toast.makeText(Presenter.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-            if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-                DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.getString("isAdmin") != null){
-                            startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-                            finish();
+    public void login_btn() {
+        Button mLoginBtn = findViewById(R.id.registerBtn);
+        EditText mEmail = (EditText)findViewById(R.id.Email);
+        EditText mPassword =(EditText) findViewById(R.id.password);
+
+        mLoginBtn.setOnClickListener(view -> {
+            String email = mEmail.getText().toString().trim();
+            String password = mPassword.getText().toString().trim();
+            fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+                Toast.makeText(Presenter.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if (documentSnapshot.getString("isAdmin") != null) {
+                                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                                finish();
+                            } else if (documentSnapshot.getString("isStudent") != null) {
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            } else {
+                                startActivity(new Intent(getApplicationContext(), Register.class));
+                                finish();
+                            }
                         }
-                        else if(documentSnapshot.getString("isStudent") != null){
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(getApplicationContext(), View2.class));
                         }
-                        else{
-                            startActivity(new Intent(getApplicationContext(), Register.class));
-                            finish();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(), View2.class));
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
     }
 
     public void error() {
+        EditText mEmail = (EditText)findViewById(R.id.Email);
+        EditText mPassword = findViewById(R.id.password);
         String email= view.get_email();
         String pass = view.get_pass();
         if (email == "") {

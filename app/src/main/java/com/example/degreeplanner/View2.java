@@ -16,61 +16,73 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class View2 extends AppCompatActivity implements Contract.View {
     private Contract.Presenter presenter;
+    private EditText email,pass;
+
     public Button btn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        presenter = new Presenter(new Model(), this);
 
-    }
 
-    public void PrepWell(){
-        TextView textView = findViewById(R.id.textView);
-    }
 
-    public void Login(){
-        TextView textView = findViewById(R.id.textView2);
-    }
 
-    public String get_email(){
-        EditText email = findViewById(R.id.Email);
-        return email.getText().toString();
-    }
-    public String get_pass(){
-        EditText pass = findViewById(R.id.password);
-        return pass.getText().toString();
-    }
+        public void loginBtn (View2 view){
+            presenter.login_btn();
+
+
+        }
+        public void error_msg (View2 view){
+            presenter.error();
+        }
+
+
+        public void PrepWell () {
+            TextView textView = findViewById(R.id.textView);
+        }
+
+        public void Login () {
+            TextView textView = findViewById(R.id.textView2);
+        }
+
+        public String get_email () {
+            return email.getText().toString();
+        }
+        public String get_pass () {
+
+
+            return pass.getText().toString();
+        }
 //    public void display(){
 //       Toast.makeText(View.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
 //    }
 
-    public void regBtn(View2 view){
-        Intent intent = new Intent(this, Register.class);
-        startActivity(intent);
-        finish();
+        public void regBtn (View2 view){
+            Intent intent = new Intent(this, Register.class);
+            startActivity(intent);
+            finish();
+        }
+
+
+        public void forgotPass (View2 view){
+            TextView new_pass = findViewById(R.id.forgotpassword);
+        }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        EditText email = (EditText) findViewById(R.id.Email);
+        EditText pass = (EditText) findViewById(R.id.password);
+
+
+        presenter = new Presenter(new Model(), this);
     }
 
-    public void loginBtn(View2 view){
-        presenter.login_btn();
-
-    }
-
-    public void forgotPass(View2 view){
-        TextView new_pass = findViewById(R.id.forgotpassword);
-    }
 
 //    public void progressB(){
 //        ProgressBar proBar = findViewById(R.id.progressBar2);
 //    }
 
-    public void error_msg(View2 view){
-        presenter.error();
-    }
 
 
 }
