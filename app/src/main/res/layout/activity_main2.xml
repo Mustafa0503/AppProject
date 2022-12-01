@@ -97,7 +97,7 @@
         app:layout_constraintVertical_bias="0.067"
         android:contentDescription="Add courses!"
         app:srcCompat="@drawable/addcrsbtn"
-        android:onClick="addCourse"
+        android:onClick="openAd"
         />
 
     <Button
