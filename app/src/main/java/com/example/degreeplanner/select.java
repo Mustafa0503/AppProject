@@ -3,6 +3,7 @@ package com.example.degreeplanner;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -126,7 +128,30 @@ public class select extends AppCompatActivity {
         listViewData=findViewById(R.id.listView_data);
 
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_checked,allC);
+                android.R.layout.simple_list_item_checked,allC){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+            {
+                View view = super.getView(position, convertView, parent);
+                if (position % 2 == 1)
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                }
+                else
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.purple_200));
+                }
+                if(position==0){
+                    view.setBackgroundColor(getResources().getColor(R.color.white));
+                }
+                if(position==allC.size()-1){
+                    view.setBackgroundColor(getResources().getColor(R.color.white));
+                }
+                return view;
+            }
+
+        };;
         listViewData.setAdapter(adapter);
     }
     @Override

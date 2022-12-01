@@ -22,7 +22,7 @@ public class ListFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.activity_edit_admin, container, false);
         context = rootView.getContext(); // Assign your rootView to context
-        Intent intent = new Intent(context, editAdmin.class);
+        Intent intent = new Intent(context, selectDeleteAdmin.class);
         startActivity(intent);
         return rootView;
         //return inflater.inflate(R.layout.activity_taken_course_list, container, false);
