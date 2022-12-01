@@ -27,9 +27,6 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter{
         this.model = model;
         this.view = view;
     }
-    public void login(){
-        model.login_btn();
-    }
 
     public void error() {
         EditText mEmail = findViewById(R.id.Email);
@@ -50,5 +47,16 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter{
         }
 
     }
+
+    public void forgot(){
+        model.forgott();
+    }
+
+    public void login(String email, String pass) {
+        model.login_btn(email, pass);
+
+    }
+
+
 
 }

@@ -20,19 +20,51 @@ public class View2 extends AppCompatActivity implements Contract.View {
     public Button btn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    EditText email;
+    EditText pass;
+    Model ob = new Model();
+    public String get_email(){
+        EditText email = (EditText) findViewById(R.id.Email);
+        return email.getText().toString().trim();
+    }
+    public String get_pass(){
+        EditText pass = (EditText) findViewById(R.id.password);
+        return pass.getText().toString().trim();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        email = (EditText) findViewById(R.id.Email);
+        pass = (EditText) findViewById(R.id.password);
         Button mLoginBtn = (Button)findViewById(R.id.registerBtn);
+        TextView reg = (TextView) findViewById(R.id.createText);
+        TextView forgotPass = (TextView) findViewById(R.id.forgotpassword);
         presenter = new Presenter(new Model(), this);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.login();
+//                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+//                finish();
+                presenter.login(email.getText().toString().trim(), pass.getText().toString().trim());
             }
         });
+        reg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                regBtn();
+
+            }
+        });
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.forgot();
+            }
+        });
+
+
 
     }
 
@@ -42,14 +74,8 @@ public class View2 extends AppCompatActivity implements Contract.View {
     public void Login(){
         TextView textView = findViewById(R.id.textView2);
     }
-    public String get_email(){
-        EditText email = findViewById(R.id.Email);
-        return email.getText().toString();
-    }
-    public String get_pass(){
-        EditText pass = findViewById(R.id.password);
-        return pass.getText().toString();
-    }
+
+
 //    public void display(){
 //       Toast.makeText(View.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
 //    }
@@ -57,7 +83,7 @@ public class View2 extends AppCompatActivity implements Contract.View {
 
 
 
-    public void regBtn(View2 view){
+    public void regBtn(){
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
         finish();
