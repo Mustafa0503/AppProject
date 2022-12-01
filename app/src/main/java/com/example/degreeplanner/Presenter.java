@@ -21,11 +21,7 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter{
     private Contract.Model model;
     public Contract.View view;
     FirebaseAuth fAuth;
-    EditText mEmail = findViewById(R.id.Email);
-    EditText mPassword = findViewById(R.id.password);
-    Button mLoginBtn = findViewById(R.id.registerBtn);
-    String email = mEmail.getText().toString().trim();
-    String password = mPassword.getText().toString().trim();
+
 
     public Presenter(Contract.Model model, Contract.View view) {
         this.model = model;
@@ -33,6 +29,11 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter{
     }
 
     public void login_btn(){
+        EditText mEmail = findViewById(R.id.Email);
+        EditText mPassword = findViewById(R.id.password);
+        Button mLoginBtn = findViewById(R.id.registerBtn);
+        String email = mEmail.getText().toString().trim();
+        String password = mPassword.getText().toString().trim();
         fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
             Toast.makeText(Presenter.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
             if (FirebaseAuth.getInstance().getCurrentUser()!=null){
@@ -65,6 +66,8 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter{
     }
 
     public void error() {
+        EditText mEmail = findViewById(R.id.Email);
+        EditText mPassword = findViewById(R.id.password);
         String email= view.get_email();
         String pass = view.get_pass();
         if (email == "") {
