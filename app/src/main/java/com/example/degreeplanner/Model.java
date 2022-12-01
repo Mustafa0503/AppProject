@@ -56,8 +56,7 @@ public class Model extends AppCompatActivity implements Contract.Model{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        String email = mEmail.getText().toString().trim();
-        String password = mPassword.getText().toString().trim();
+
 
         FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -68,13 +67,51 @@ public class Model extends AppCompatActivity implements Contract.Model{
                         String em = document.getString("email");
                         email_id.add(em);
                     }
-                    EmailArray=new String[email_id.size()];
+                    EmailArray = new String[email_id.size()];
                     EmailArray = email_id.toArray(EmailArray);
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
-        }
-
     }
+
+
+        public void login_btn () {
+            EditText mEmail = findViewById(R.id.Email);
+            EditText mPassword = findViewById(R.id.password);
+            String email = mEmail.getText().toString().trim();
+            String password = mPassword.getText().toString().trim();
+            fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+                Toast.makeText(Model.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if (documentSnapshot.getString("isAdmin") != null) {
+                                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                                finish();
+                            } else if (documentSnapshot.getString("isStudent") != null) {
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            } else {
+                                startActivity(new Intent(getApplicationContext(), Register.class));
+                                finish();
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(getApplicationContext(), View2.class));
+                        }
+                    });
+                }
+            }
+            );
+        }
+    }
+
+
+

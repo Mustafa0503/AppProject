@@ -2,6 +2,7 @@ package com.example.degreeplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -24,19 +25,23 @@ public class View2 extends AppCompatActivity implements Contract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        Button mLoginBtn = (Button)findViewById(R.id.registerBtn);
         presenter = new Presenter(new Model(), this);
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.login();
+            }
+        });
 
     }
 
     public void PrepWell(){
         TextView textView = findViewById(R.id.textView);
     }
-
     public void Login(){
         TextView textView = findViewById(R.id.textView2);
     }
-
     public String get_email(){
         EditText email = findViewById(R.id.Email);
         return email.getText().toString();
@@ -49,16 +54,15 @@ public class View2 extends AppCompatActivity implements Contract.View {
 //       Toast.makeText(View.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
 //    }
 
+
+
+
     public void regBtn(View2 view){
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
         finish();
     }
 
-    public void loginBtn(View2 view){
-        presenter.login_btn();
-
-    }
 
     public void forgotPass(View2 view){
         TextView new_pass = findViewById(R.id.forgotpassword);

@@ -27,42 +27,8 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter{
         this.model = model;
         this.view = view;
     }
-
-    public void login_btn(){
-        EditText mEmail = findViewById(R.id.Email);
-        EditText mPassword = findViewById(R.id.password);
-        Button mLoginBtn = findViewById(R.id.registerBtn);
-        String email = mEmail.getText().toString().trim();
-        String password = mPassword.getText().toString().trim();
-        fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-            Toast.makeText(Presenter.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-            if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-                DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.getString("isAdmin") != null){
-                            startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-                            finish();
-                        }
-                        else if(documentSnapshot.getString("isStudent") != null){
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
-                        }
-                        else{
-                            startActivity(new Intent(getApplicationContext(), Register.class));
-                            finish();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(), View2.class));
-                    }
-                });
-            }
-        });
+    public void login(){
+        model.login_btn();
     }
 
     public void error() {
