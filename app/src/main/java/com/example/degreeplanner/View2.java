@@ -16,96 +16,88 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class View2 extends AppCompatActivity implements Contract.View {
+public class View2 extends AppCompatActivity implements View.OnClickListener, Contract.View {
     private Contract.Presenter presenter;
-    private EditText email, pass;
-    private Button mLoginBtn;
-
-    public Button btn;
+    public Button Loginbtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-
-    public void loginBtn(View2 view) {
-        presenter.login_btn();
-        presenter.error();
-
-
+    EditText email;
+    EditText pass;
+    TextView Register;
+    Model ob = new Model();
+    public String get_email(){
+        EditText email = (EditText) findViewById(R.id.Email);
+        return email.getText().toString().trim();
     }
-//        public void error_msg (View2 view){
-//            presenter.error();
-//        }
-
-
-    public void PrepWell() {
-        TextView textView = findViewById(R.id.textView);
-    }
-
-    public void Login() {
-        TextView textView = findViewById(R.id.textView2);
-    }
-
-    public String get_email() {
-        return email.getText().toString();
-    }
-
-    public String get_pass() {
-        return pass.getText().toString();
-    }
-//    public void display(){
-//       Toast.makeText(View.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-//    }
-
-    public void regBtn(View2 view) {
-        Intent intent = new Intent(this, Register.class);
-        startActivity(intent);
-        finish();
-    }
-
-
-    public void forgotPass(View2 view) {
-        presenter.forgotlink();
-        TextView new_pass = findViewById(R.id.forgotpassword);
+    public String get_pass(){
+        EditText pass = (EditText) findViewById(R.id.password);
+        return pass.getText().toString().trim();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EditText email = (EditText) findViewById(R.id.Email);
-        EditText pass = (EditText) findViewById(R.id.password);
-        TextView new_pass = findViewById(R.id.forgotpassword);
-        Button mLoginBtn = findViewById(R.id.registerBtn);
-        //forgotTextLink = findViewById(R.id.forgotpassword);
+        email = (EditText) findViewById(R.id.Email);
+        pass = (EditText) findViewById(R.id.password);
+        Loginbtn= (Button) findViewById(R.id.registerBtn);
+        TextView reg = (TextView) findViewById(R.id.createText);
+        TextView forgotPass = (TextView) findViewById(R.id.forgotpassword);
+        Loginbtn.setOnClickListener(this);
+        pass.setOnClickListener(this);
         presenter = new Presenter(new Model(), this);
-        new_pass.setOnClickListener(view -> {
-            EditText resetMail = new EditText(view.getContext());
-            AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
-            passwordResetDialog.setTitle("Reset Password?");
-            passwordResetDialog.setMessage("Enter your email id to receive the reset link");
-            passwordResetDialog.setView(resetMail);
-            passwordResetDialog.setPositiveButton("Yes", (dialogInterface, i) -> {
-                String mail = resetMail.getText().toString();
-                fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(unused -> Toast.makeText(View2.this, "Reset Link has been sent to your email", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(View2.this, "Error ! No link has been sent" + e.getMessage(), Toast.LENGTH_SHORT).show());
-            });
-            passwordResetDialog.setNegativeButton("No", (dialogInterface, i) -> {
 
-            });
-            passwordResetDialog.create().show();
-        });
+
+    }
+    public void PrepWell(){
+        TextView textView = findViewById(R.id.textView);
+    }
+    public void Login(){
+        TextView textView = findViewById(R.id.textView2);
     }
 
+
+//    public void display(){
+//       Toast.makeText(View.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+//    }
+
+
+
+
+    public void regBtn(){
+        Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+    public void forgotPass(View2 view){
+        TextView new_pass = findViewById(R.id.forgotpassword);
+    }
+
+//    public void progressB(){
+//        ProgressBar proBar = findViewById(R.id.progressBar2);
+//    }
+
+    public void error_msg(View2 view){
+        presenter.error();
+    }
+
+//presenter.login(email.getText().toString().trim(), pass.getText().toString().trim());
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.registerBtn:
+                //startActivity(new Intent(this, MainActivity.class));
+                break;
+            case R.id.forgotpassword:
+                startActivity(new Intent(this, AlertDialog.class));
+                break;
+
+            case R.id.createText:
+                startActivity(new Intent(this, Register.class));
+                break;
+        }
+    }
 }
-
-
-
-
-
-
-
-   /*public void progressB(){
-       ProgressBar proBar = findViewById(R.id.progressBar2);
-   }*/
-
-
-
-

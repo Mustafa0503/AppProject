@@ -2,6 +2,7 @@ package com.example.degreeplanner;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,9 +31,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class Model extends AppCompatActivity implements Contract.Model{
+public class Model extends AppCompatActivity implements Contract.Model {
 
-
+    EditText mEmail, mPassword;
     Button mLoginBtn;
     TextView mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
@@ -39,44 +41,112 @@ public class Model extends AppCompatActivity implements Contract.Model{
     FirebaseFirestore fStore;
     ArrayList<String> email_id;
     String[] EmailArray;
+    int num;
 
 
-    public boolean ru_there(String email){
-        for(int i=0; i<email_id.size(); i++)
-        {
-            if(email_id.get(i)!=email)
-            {
-                return false;
-            }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_login);
+//        FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    email_id = new ArrayList<>();
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        String em = document.getString("email");
+//                        email_id.add(em);
+//                    }
+//                    EmailArray = new String[email_id.size()];
+//                    EmailArray = email_id.toArray(EmailArray);
+//                } else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+//                }
+//            }
+//        });
+//        login_btn();
+//    }
+
+//    public boolean ru_there(String email) {
+//        for (int i = 0; i < email_id.size(); i++) {
+//            if (email_id.get(i) != email) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
+    public int Login(String email, String pass) {
+        //EditText mEmail = findViewById(R.id.Email);
+        //EditText mPassword = findViewById(R.id.password);
+        // String email = mEmail.getText().toString().trim();
+        //String password = mPassword.getText().toString().trim();
+
+
+
+        public void forgott () {
+            forgotTextLink.setOnClickListener(view -> {
+                EditText resetMail = new EditText(view.getContext());
+                AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
+                passwordResetDialog.setTitle("Reset Password?");
+                passwordResetDialog.setMessage("Enter your email id to receive the reset link");
+                passwordResetDialog.setView(resetMail);
+                passwordResetDialog.setPositiveButton("Yes", (dialogInterface, i) -> {
+                    String mail = resetMail.getText().toString();
+                    fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(unused -> Toast.makeText(Model.this, "Reset Link has been sent to your email", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(Model.this, "Error ! No link has been sent" + e.getMessage(), Toast.LENGTH_SHORT).show());
+                });
+                passwordResetDialog.setNegativeButton("No", (dialogInterface, i) -> {
+
+                });
+                passwordResetDialog.create().show();
+            });
+
         }
-        return true;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        EditText mEmail = (EditText) findViewById(R.id.Email);
-        EditText mPassword = findViewById(R.id.password);
-        String email = mEmail.getText().toString().trim();
-        String password = mPassword.getText().toString().trim();
+    public boolean ru_there(String email) {
+        return false;
+    }
 
-        FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    email_id = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String em = document.getString("email");
-                        email_id.add(em);
-                    }
-                    EmailArray=new String[email_id.size()];
-                    EmailArray = email_id.toArray(EmailArray);
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-        }
+    @Override
+    public void forgott() {
 
     }
+
+    @Override
+    public int login_btn(String email, String pass) {
+        fAuth = FirebaseAuth.getInstance();
+        fAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(authResult -> {
+                    Toast.makeText(Model.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                    if (fAuth.getCurrentUser() != null) {
+                        DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.getString("isAdmin") != null) {
+                                    num = 1;
+                                } else if (documentSnapshot.getString("isStudent") != null) {
+                                    num = 0;
+                                } else {
+                                    num = -1;
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(getApplicationContext(), View2.class));
+                            }
+                        });
+                    }
+                }
+        );
+        return num;
+    }
+}
+
+
+
+
+
