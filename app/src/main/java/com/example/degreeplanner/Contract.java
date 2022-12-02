@@ -11,7 +11,8 @@ public interface Contract {
         public String get_pass();
     }
     public interface Presenter{
-        public void login_btn();
-        public void error();
+        public android.view.View.OnClickListener login_btn();
+        public boolean error();
+        public void forgotlink();
     }
 }
