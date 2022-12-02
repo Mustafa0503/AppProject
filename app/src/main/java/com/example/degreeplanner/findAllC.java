@@ -70,6 +70,7 @@ public class findAllC extends AppCompatActivity {
                         ArrayList<String> pre = (ArrayList<String>) documentSnapshot.get("Prerequisites");
                         tt.add(new findAllC(crs, off, pre));
                     }
+
                     //setList(tt);
 
                     //System.out.println(Register.all.size());

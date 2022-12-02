@@ -100,6 +100,10 @@ public class select extends AppCompatActivity {
 //                    arrayPeliculas = allC.toArray(arrayPeliculas);
 
                     //allC.add("djasndkj");
+
+
+
+
                 }
                 else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
