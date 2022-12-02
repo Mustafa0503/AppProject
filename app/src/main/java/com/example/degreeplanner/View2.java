@@ -5,24 +5,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class View2 extends AppCompatActivity implements Contract.View {
+public class View2 extends AppCompatActivity implements View.OnClickListener, Contract.View {
     private Contract.Presenter presenter;
-    public Button btn;
+    public Button mLoginBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    EditText email;
-    EditText pass;
-    Model ob = new Model();
+    private EditText email;
+    private EditText pass;
+
     public String get_email(){
         EditText email = (EditText) findViewById(R.id.Email);
         return email.getText().toString().trim();
@@ -36,37 +35,58 @@ public class View2 extends AppCompatActivity implements Contract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         email = (EditText) findViewById(R.id.Email);
+        email.setOnClickListener(this);
+
         pass = (EditText) findViewById(R.id.password);
-        Button mLoginBtn = (Button)findViewById(R.id.registerBtn);
+        pass.setOnClickListener(this);
+
+        mLoginBtn = (Button) findViewById(R.id.registerBtn);
+        mLoginBtn.setOnClickListener(this);
+
         TextView reg = (TextView) findViewById(R.id.createText);
+        reg.setOnClickListener(this);
+
         TextView forgotPass = (TextView) findViewById(R.id.forgotpassword);
+        forgotPass.setOnClickListener(this);
+
         presenter = new Presenter(new Model(), this);
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-//                finish();
-                presenter.login(email.getText().toString().trim(), pass.getText().toString().trim());
-            }
-        });
-        reg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                regBtn();
-
-            }
-        });
-        forgotPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.forgot();
-            }
-        });
-
-
 
     }
+
+    @Override
+    public void onClick(View view) {
+        String email_str = email.getText().toString().trim();
+        String pass_str = pass.getText().toString().trim();
+
+        switch(view.getId()){
+            case R.id.createText:
+                startActivity(new Intent(this, Register.class));
+                break;
+            case R.id.forgotpassword:
+                startActivity(new Intent(this, AlertDialog.class));
+                break;
+            case R.id.registerBtn:
+                int num = presenter.login(email_str, pass_str);
+                if(num ==1){
+                    startActivity(new Intent(this, MainActivity2.class));
+                    finish();
+                }
+                else if(num == 0) {
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                }
+                else{
+                startActivity(new Intent(this, Register.class));
+                finish();
+            } break;
+
+
+        }
+
+    }
+
 
     public void PrepWell(){
         TextView textView = findViewById(R.id.textView);
@@ -81,18 +101,6 @@ public class View2 extends AppCompatActivity implements Contract.View {
 //    }
 
 
-
-
-    public void regBtn(){
-        Intent intent = new Intent(this, Register.class);
-        startActivity(intent);
-        finish();
-    }
-
-
-    public void forgotPass(View2 view){
-        TextView new_pass = findViewById(R.id.forgotpassword);
-    }
 
 //    public void progressB(){
 //        ProgressBar proBar = findViewById(R.id.progressBar2);

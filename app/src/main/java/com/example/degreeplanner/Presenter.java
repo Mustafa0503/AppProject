@@ -52,8 +52,8 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter{
         model.forgott();
     }
 
-    public void login(String email, String pass) {
-        model.login_btn(email, pass);
+    public int login(String email, String pass) {
+        return model.login_btn(email, pass);
 
     }
 

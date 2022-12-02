@@ -3,6 +3,7 @@ package com.example.degreeplanner;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -41,7 +42,7 @@ public class Model extends AppCompatActivity implements Contract.Model{
     FirebaseFirestore fStore;
     ArrayList<String> email_id;
     String[] EmailArray;
-
+    int num;
 
 
 
@@ -81,45 +82,67 @@ public class Model extends AppCompatActivity implements Contract.Model{
     }
 
 
-        public void login_btn () {
-            EditText mEmail = findViewById(R.id.Email);
-            EditText mPassword = findViewById(R.id.password);
-            String email = mEmail.getText().toString().trim();
-            String password = mPassword.getText().toString().trim();
+        public int login_btn (String email, String password) {
+//            EditText mEmail = findViewById(R.id.Email);
+//            EditText mPassword = findViewById(R.id.password);
+//            String email = mEmail.getText().toString().trim();
+//            String password =
             fAuth= FirebaseAuth.getInstance();
             fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
 //                Toast.makeText(Model.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                if (fAuth.getCurrentUser() != null) {
+               // if (fAuth.getCurrentUser() != null) {
+                    //FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.getString("isAdmin") != null) {
-                                   // num = 1;
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            } else if (documentSnapshot.getString("isStudent") != null) {
-                                   // num = 0;
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                DocumentSnapshot document = task.getResult();
+                                if(document != null){
+                                    if(document.getString("isAdmin") != null){
+                                        num = 1;
+                                    }
+                                    else if(document.getString("isStudent") != null){
+                                        num = 0;
+                                    }
+                                    else{
+                                        num = -1;
+                                    }
 
-                                finish();startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            } else {
-                                   // num = -1;
-                                startActivity(new Intent(getApplicationContext(), Register.class));
-                                finish();
+                                }
                             }
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            FirebaseAuth.getInstance().signOut();
-                            startActivity(new Intent(getApplicationContext(), View2.class));
-                        }
                     });
-                }
-            }
-            );
-        }
+//                    {
+//                       @Override
+//                        public void onComplete(Task){
+//                            if (df.getString("isAdmin") != null) {
+//                                    num = 1;
+////                                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+////                                finish();
+//                            } else if (documentSnapshot.getString("isStudent") != null) {
+//                                   num = 0;
+//
+////                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+////                                finish();
+//                            } else {
+//                                   num = -1;
+//                                startActivity(new Intent(getApplicationContext(), Register.class));
+//                                finish();
+//                            }
+//                        }
+//                    });
+//                            .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            FirebaseAuth.getInstance().signOut();
+//                            startActivity(new Intent(getApplicationContext(), View2.class));
+//                        }
+//                    });
+                //}
+            });
+            return num;
+    }
 
         public void forgott(){
         forgotTextLink.setOnClickListener(view -> {
@@ -140,10 +163,6 @@ public class Model extends AppCompatActivity implements Contract.Model{
 
         }
 
-    @Override
-    public void login_btn(String email, String pass) {
-
-    }
 
 
 }
