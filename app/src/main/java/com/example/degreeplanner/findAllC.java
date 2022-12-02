@@ -51,7 +51,7 @@ public class findAllC extends AppCompatActivity {
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //    }
-    public ArrayList<findAllC> getAll(){
+    public void getAll(){
         ArrayList<findAllC> tt = new ArrayList<>();
 //        ArrayList<findAllC> allC = new ArrayList<findAllC>();
         mDb.collection("course").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -79,7 +79,7 @@ public class findAllC extends AppCompatActivity {
                 }
             }
         });
-        return tt;
+
         //System.out.println(tt.size());
         //System.out.println("*******************");
        // System.out.println(allC.size());
