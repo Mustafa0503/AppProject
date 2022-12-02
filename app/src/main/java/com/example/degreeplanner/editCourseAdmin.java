@@ -37,17 +37,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class editCourseAdmin extends AppCompatActivity {
+public class editCourseAdmin extends AppCompatActivity implements MultiSpinnerListener{
     EditText course, code, session;
     Button but;
     FirebaseFirestore db;
     TextView pre, coursename;
+    String co="", cod="", se="";
     List<String> preR;
     ArrayList<String> existingC;
     ListView list;
     boolean s = false;
-    boolean[] selected;
+    boolean[] selected, selSession;
     ArrayList<Integer> courseList = new ArrayList<>();
+    ArrayList<String> sesh = new ArrayList<>();
+    ArrayList<String> sessionDB = new ArrayList<>();
     editAdmin ob = new editAdmin();
     String val = ob.getItemval();
 
@@ -58,7 +61,9 @@ public class editCourseAdmin extends AppCompatActivity {
     String[] courseArray;
     //= {"CSCA08", "CSCA48", "CSCA67", "CSCB07", "CSCB09", "None"}
 
+    public void onItemsSelected(boolean[] selected){
 
+    }
     public void doWork(){
         db = FirebaseFirestore.getInstance();
         pre = findViewById(R.id.prereqs);
@@ -66,39 +71,34 @@ public class editCourseAdmin extends AppCompatActivity {
         selected = new boolean[courseArray.length];
         course = findViewById(R.id.coursename);
         code = findViewById(R.id.Coursecode);
-        session = findViewById(R.id.session);
+        //session = findViewById(R.id.session);
+        selSession = MultiSpinner.getSelected();
         but = findViewById(R.id.FinishBtn);
         list = findViewById(R.id.adminlistview);
 
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String co = course.getText().toString();
-                String cod = code.getText().toString();
-                String se = session.getText().toString();
-                if (TextUtils.isEmpty(co)) {
-                    course.setError("Course name is Required");
-                    return;
+
+                co = course.getText().toString();
+                cod = code.getText().toString();
+                for (int i = 0; i < 3; i++) {
+                    if (selSession[i] == true) {
+                        sessionDB.add(sesh.get(i));
+                    }
                 }
-                if (TextUtils.isEmpty(cod)) {
-                    code.setError("Course code is Required");
-                    return;
-                }
-                if (TextUtils.isEmpty(se)) {
-                    session.setError("Session is Required");
-                    return;
-                }
-                Map<String, Object> newCourse = new HashMap<>();
-                newCourse.put("Course Name", co);
-                newCourse.put("Course Code", cod);
-                newCourse.put("Session Offered", se);
-                newCourse.put("Prerequisites", preR);
+                if (!co.equals("") && !cod.equals("") && !existingC.contains(cod) && !sessionDB.isEmpty() && !preR.isEmpty()) {
+                    Map<String, Object> newCourse = new HashMap<>();
+                    newCourse.put("Course Name", co);
+                    newCourse.put("Course Code", cod);
+                    newCourse.put("Session Offered", sessionDB);
+                    newCourse.put("Prerequisites", preR);
 //                db.collection("course").add(newCourse).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                    @Override
 //                    public void onSuccess(DocumentReference documentReference) {
 //                        Toast.makeText(editCourseAdmin.this, "Successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), editCourseAdmin.class));
-                finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                    finish();
 //                    }
 //                }).addOnFailureListener(new OnFailureListener() {
 //                    @Override
@@ -106,19 +106,22 @@ public class editCourseAdmin extends AppCompatActivity {
 //                        Toast.makeText(editCourseAdmin.this, "Failed", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-                mDb.collection("course").whereEqualTo("Course Code", val).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
-                        String documentID=documentSnapshot.getId();
-                        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("course").document(documentID);
-                            documentReference.update("Course Code",cod);
+                    mDb.collection("course").whereEqualTo("Course Code", val).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                            String documentID = documentSnapshot.getId();
+                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("course").document(documentID);
+                            documentReference.update("Course Code", cod);
                             documentReference.update("Course Name", co);
-                            documentReference.update("Session Offered", se);
+                            documentReference.update("Session Offered", sessionDB);
                             documentReference.update("Prerequisites", preR);
 
-                    }
-                });
+                        }
+                    });
+                }else {
+                    Toast.makeText(editCourseAdmin.this, "Invalid Input", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -192,6 +195,13 @@ public class editCourseAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_edit_course_admin);
         coursename = findViewById(R.id.textView2);
         coursename.setText("Modify " + val);
+
+        sesh.add(0, "Summer");
+        sesh.add(1, "Fall");
+        sesh.add(2, "Winter");
+
+        MultiSpinner multiSpinner = (MultiSpinner) findViewById(R.id.multi_spinner2);
+        multiSpinner.setItems(sesh, "", this);
         mDb.collection(COURSE).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -199,7 +209,9 @@ public class editCourseAdmin extends AppCompatActivity {
                     existingC = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String cou = document.getString("Course Code");
+                        if(!cou.equals(val)){
                             existingC.add(cou);
+                        }
 
                     }
 

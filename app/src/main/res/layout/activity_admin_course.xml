@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bg"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".adminCourse">
 
     <EditText
@@ -29,10 +28,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.118" />
 
+
+    <!--    <Spinner-->
+<!--        android:id="@+id/spinL"-->
+<!--        android:layout_width="185dp"-->
+<!--        android:layout_height="76dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_weight="1"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/preReqs"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/courseCode"-->
+<!--        app:layout_constraintVertical_bias="0.171"-->
+<!--        tools:listitem="@layout/item_dropdown" />-->
+
     <EditText
         android:id="@+id/courseCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:autofillHints=""
         android:background="#30ffffff"
         android:ems="10"
@@ -43,33 +57,27 @@
         android:textColorHint="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/offered"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseName"
-        app:layout_constraintVertical_bias="0.478" />
-
-    <EditText
-        android:id="@+id/offered"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:background="#30ffffff"
-        android:ems="10"
-        android:fontFamily="@font/amaranth"
-        android:hint="Offered"
-        android:minHeight="70dp"
-        android:textAlignment="center"
-        android:textColorHint="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintTop_toBottomOf="@+id/courseName"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <com.example.degreeplanner.MultiSpinner
+
+        android:id="@+id/multi_spinner"
+        android:layout_width="400dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="68dp"
+        android:layout_weight="1"
+        android:contentDescription="session dropdown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/courseCode"
+        app:layout_constraintTop_toBottomOf="@+id/courseCode"
+        app:layout_constraintVertical_bias="0.006" />
 
     <TextView
         android:id="@+id/preReqs"
@@ -82,39 +90,42 @@
         android:fontFamily="@font/amaranth"
         android:hint="Prerequisites"
         android:minHeight="70dp"
-        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColorHint="@color/black"
         android:textSize="30sp"
+        android:gravity="center"
         android:textStyle="bold"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/offered"
-        app:layout_constraintVertical_bias="0.227" />
+        app:layout_constraintTop_toBottomOf="@+id/multi_spinner"
+        app:layout_constraintVertical_bias="0.21" />
 
     <Button
         android:id="@+id/ret"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/re"
         android:onClick="adDash"
+        android:text="@string/re"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addC"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/addC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="56dp"
         android:text="@string/addC"
-        app:layout_constraintBottom_toTopOf="@+id/ret"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/preReqs"
+        app:layout_constraintVertical_bias="0.04" />
 
     <TextView
         android:id="@+id/textView3"

@@ -151,7 +151,7 @@ public class select extends AppCompatActivity {
                 return view;
             }
 
-        };;
+        };
         listViewData.setAdapter(adapter);
     }
     @Override
