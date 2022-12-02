@@ -20,7 +20,11 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
-
+    public void test(View view) {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(), Error404.class));
+        finish();
+    }
     public void openAsk(View view) {
         Intent intent = new Intent(this, ProfilePage.class);
         startActivity(intent);

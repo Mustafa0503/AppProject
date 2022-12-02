@@ -255,15 +255,12 @@ public class selectDeleteAdmin extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void deletePre(String target){
-
         FirebaseFirestore.getInstance().collection("course").whereArrayContains("Prerequisites", target).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                 // allC = new ArrayList<String>();
                 if (task.isSuccessful()) {
                     // List<String> list = new ArrayList<>();
-
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     CollectionReference Ref = db.collection("course");
                     for(int i=0; i<task.getResult().getDocuments().size();i++)
@@ -272,9 +269,6 @@ public class selectDeleteAdmin extends AppCompatActivity {
                         String documentID=documentSnapshot.getId();
                         Ref.document(documentID).update("Prerequisites",FieldValue.arrayRemove(target));
                     }
-
-
-
                 }
             }
         });

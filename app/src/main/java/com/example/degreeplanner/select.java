@@ -82,8 +82,6 @@ public class select extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         allC.add("Select all");
 
-
-
         //Query a = FirebaseFirestore.getInstance().collection("course").whereGreaterThan("Course Code", null);
 
         FirebaseFirestore.getInstance().collection("course").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
