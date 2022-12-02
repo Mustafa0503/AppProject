@@ -47,28 +47,27 @@ public class Model extends AppCompatActivity implements Contract.Model{
 
 
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
-//        FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    email_id = new ArrayList<>();
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        String em = document.getString("email");
-//                        email_id.add(em);
-//                    }
-//                    EmailArray = new String[email_id.size()];
-//                    EmailArray = email_id.toArray(EmailArray);
-//                } else {
-//                    Log.d(TAG, "get failed with ", task.getException());
-//                }
-//            }
-//        });
-//        login_btn();
-//    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    email_id = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String em = document.getString("email");
+                        email_id.add(em);
+                    }
+                    EmailArray = new String[email_id.size()];
+                    EmailArray = email_id.toArray(EmailArray);
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
 
     public boolean ru_there(String email){
         for(int i=0; i<email_id.size(); i++)
