@@ -20,8 +20,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class View2 extends AppCompatActivity implements View.OnClickListener, Contract.View2 {
 
     private Contract.Presenter presenter;
-    //    EditText email, mPassword;
-//    Button mLoginBtn;
     TextView mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
@@ -37,6 +35,7 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
         EditText pass = (EditText) findViewById(R.id.password);
         return pass.getText().toString().trim();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +54,10 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
         TextView reg = (TextView) findViewById(R.id.createText);
         reg.setOnClickListener(this);
 
-        TextView forgotPass = (TextView) findViewById(R.id.forgotpassword);
-        forgotPass.setOnClickListener(this);
 
         presenter = new Presenter(new Model(), this);
     }
-    public int isAdm(String email){
-        if(email.contains("admin")){
-            return 1;
-        }
-        else if (email.contains("student") ){
-            return 0;
-        }
-        return -1;
-    }
+
 
 
     public void onClick(View view) {
@@ -82,43 +71,44 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
             case R.id.createText:
                 startActivity(new Intent(this, Register.class));
                 break;
-            case R.id.forgotpassword:
-                startActivity(new Intent(this, AlertDialog.Builder.class));
-                break;
-
-//                 || pass_str= "" || pass_str.length()<6 || !email_str.contains("@gmail.com")
-
             case R.id.registerBtn:
-                if (TextUtils.isEmpty(email_str)) {
-                    presenter.error_msg(email_str, pass_str); }
 
-                else if (TextUtils.isEmpty(pass_str)){
-                    presenter.error_msg(email_str, pass_str);
-                }
-                else if (pass_str.length() < 6){
-                    presenter.error_msg(email_str, pass_str);
-                }
-                else if (!email_str.contains("@gmail.com"))
-                    presenter.error_msg(email_str, pass_str);
+                if(presenter.error_msg(email_str,pass_str)==0) {
+                    if ((presenter.login(email_str,pass_str)== 1) && presenter.isAdm(email_str)==1){
+                        //progressBar.setVisibility(View.VISIBLE);
+                        OnSuccess("Successfully logged in");
+                        startActivity(new Intent(this, MainActivity2.class));
+                        finish();
+                        break;
 
-                else{
-                if (isAdm(email_str) == 1) {
-                    OnSuccess("Successfully logged in");
-                    startActivity(new Intent(this, MainActivity2.class));
-                    finish();
-                } else if (isAdm(email_str) == 0) {
-                    OnSuccess("Successfully logged in");
-                    startActivity(new Intent(this, MainActivity.class));
-                    finish();
-                } else {
-                    OnSuccess("Failed to log in");
-                    startActivity(new Intent(this, View2.class));
-                    finish();
+                    }
+                    if (presenter.login(email_str,pass_str)==2 && presenter.isAdm(email_str)==0) {
+                        OnSuccess("Successfully logged in");
+                        startActivity(new Intent(this, MainActivity.class));
+                        finish();
+                        break;
+                    }
+                    if(presenter.error_toast(email_str,pass_str)==-1){
+                        presenter.error_toast(email_str,pass_str);
+
+                        break;
+                    }
+//                    else {
+//                        Toast.makeText(this, "shutup", Toast.LENGTH_SHORT).show();
+//                        OnError("Failed to log in");
+//                        startActivity(new Intent(this, View2.class));
+//                        finish();
+//                        break;
+//                    }
                 }
-                break;
-            }
+                else if(presenter.error_msg(email_str,pass_str)==1){
+                    presenter.error_msg(email_str,pass_str);
+                    break;
+                }
+
+              break;
         }
-        }
+    }
 
 //    && presenter.ruthere(email)==true
 

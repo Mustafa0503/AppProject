@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -21,90 +23,134 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
 public class Model extends AppCompatActivity implements Contract.Model {
+        FirebaseAuth fAuth=FirebaseAuth.getInstance();
+       private FirebaseAuth.AuthStateListener mAuthListener;
+       private FirebaseAuth mAuth;
+        //static boolean num;
+        Presenter presenter;
+        public int login_btn(String email, String password) {
+            System.out.println("ge");
 
-    FirebaseAuth fAuth = FirebaseAuth.getInstance();
-    FirebaseFirestore fStore;
-    FirebaseFirestore mDb = FirebaseFirestore.getInstance();
-    Presenter presenter;
-    int num;
-    ArrayList<Integer> Num = new ArrayList<>();
-    EditText mEmail, mPassword;
-    Button mLoginBtn;
-    TextView mCreateBtn, forgotTextLink;
-    ProgressBar progressBar;
-    ArrayList<String> email_id;
+            //fAuth.getCurrentUser();
+            System.out.println("gj0000000000ute");
+            fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+                    System.out.println("gjgjyfhyeteyteute");
+                   if(fAuth.getCurrentUser()!=null) {
+                       FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                       DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                       df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                           @Override
+                           public void onSuccess(DocumentSnapshot document) {
+//                               if (task.isSuccessful()) {
+//                                   DocumentSnapshot document = task.getResult();
+                               if (document != null) {
+                                   if (document.getString("isAdmin") != null) {
+                                       //num=true;
+                                       Presenter.num = 1;
 
-    String[] EmailArray;
+//                                    startActivity(new Intent(Model.this, MainActivity2.class));
+//                                    finish();
+                                       System.out.println("num=1" + Presenter.num);
+                                   } else if (document.getString("isStudent") != null) {
+                                       //num = false;
+                                       Presenter.num = 2;
+                                       System.out.println("num=2" + Presenter.num);
+
+                                   }
+                                   else{
+                                       Presenter.num = -1;
+                                   }
 
 
-    public void addtoArrL(MyCallback myCallback) {
-        FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    ArrayList<String> email_id = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String em = document.getString("email");
-                        email_id.add(em);
-                    }
-                    myCallback.onCallback(email_id);
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
+                               }
+                           }
+                       });
+
+                   }
+
+
+            });
+            //FirebaseAuth.getInstance().signOut();
+
+            //return num;
+            if ( Presenter.num==1)
+            {
+                return 1;
             }
-        });
-        addtoArL(new MyCallback() {
-            @Override
-            public void onCallback(ArrayList<String> eventList) {
-                Log.d("TAG", email_id.toString());
-
+            else if ( Presenter.num==2)
+            {
+                return 2;
             }
-        });
-    }
-
-
-
-
-    public boolean ru_there(String email) {
-        addtoArrL();
-        boolean x = false;
-        for (int i = 0; i < email_id.size(); i++) {
-            if (email_id.get(i) == email) {
-                x = true;
+            else{
+                System.out.println("num= -1    " + Presenter.num);
+                return -1;
             }
+
+
         }
-        return x;
     }
 
-    public int data(String email) {
-//        if (ru_there(email) == true) {
-        FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null) {
-                        if (document.getString("isAdmin") != null) {
-                            presenter.num = 1;
-                        } else if (document.getString("isStudent") != null) {
-                            presenter.num = 0;
-                        }
-                    }
-
-                }
-            }
-
-        });
-        return presenter.num;
-
-    }
-}
 
 
+//    public void addtoArrL() {
+//        FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    email_id = new ArrayList<>();
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        String em = document.getString("email");
+//                        email_id.add(em);
+//                    }
+////
+//                } else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+//                }
+//            }
+//        });
+//    }
+//
+//
+//
+//    public boolean ru_there(String email) {
+//        addtoArrL();
+//        boolean x = false;
+//        for (int i = 0; i < email_id.size(); i++) {
+//            if (email_id.get(i) == email) {
+//                x = true;
+//            }
+//        }
+//        return x;
+//    }
+//
+//    public int data(String email) {
+////        if (ru_there(email) == true) {
+//        FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//        DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//        df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document != null) {
+//                        if (document.getString("isAdmin") != null) {
+//                            presenter.num = 1;
+//                        } else if (document.getString("isStudent") != null) {
+//                            presenter.num = 0;
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//        });
+//        return presenter.num;
+//
+//    }
+//}
+//
+//
 
 
 
