@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public interface Contract {
     public interface Model{
 //        public boolean ru_there(String email);
-          public boolean login_btn(String email,String password);
+          public int login_btn(String email,String password);
     }
     public interface View2 {
 
         public void OnError(String message);
-        //public void OnSucess(String message);
+        //public void OnSuccess(String message);
 
 //        void onClick(android.view.View view);
 //    }
@@ -25,7 +25,7 @@ public interface Contract {
 //
 //       public abstract ArrayList<Integer> Usertfield2(String email, String password);
 
-        boolean login(String email_str, String pass_str);
+        int login(String email_str, String pass_str);
     }
 }
 ////        public void display();

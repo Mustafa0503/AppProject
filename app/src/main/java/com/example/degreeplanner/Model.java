@@ -1,5 +1,6 @@
 package com.example.degreeplanner;
 
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -22,15 +23,20 @@ import java.util.ArrayList;
 
 public class Model extends AppCompatActivity implements Contract.Model {
     FirebaseAuth fAuth;
-    static boolean num;
+    //static boolean num;
     Presenter presenter;
 
 
-    public boolean login_btn(String email, String password) {
 
+    public int login_btn(String email, String password) {
+
+        System.out.println("ge");
         fAuth = FirebaseAuth.getInstance();
+        //fAuth.getCurrentUser();
+        System.out.println("gj0000000000ute");
         fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
             if (fAuth.getCurrentUser() != null) {
+                System.out.println("gjgjyfhyeteyteute");
                 FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -40,19 +46,37 @@ public class Model extends AppCompatActivity implements Contract.Model {
                             DocumentSnapshot document = task.getResult();
                             if (document != null) {
                                 if (document.getString("isAdmin") != null) {
-                                    num=true;
+                                    //num=true;
+                                    Presenter.num =1;
+//                                    startActivity(new Intent(Model.this, MainActivity2.class));
+//                                    finish();
+                                    System.out.println("num=1" + Presenter.num);
                                 } else if (document.getString("isStudent") != null) {
-                                    num = false;
+                                    //num = false;
+                                    Presenter.num = 2;
+                                    System.out.println("num=2"+ Presenter.num);
+
                                 }
 
                             }
                         }
+                        System.out.println("num=1           " + Presenter.num);
+
                     }
                 });
 
             }
         });
-        return num;
+        System.out.println("num=1 " + Presenter.num);
+
+        //return num;
+//        if(a==1)
+//            return 1;
+//        if(a==2)
+//            return 2;
+//         else
+//             return 0;
+        return Presenter.num;
     }
 }
 

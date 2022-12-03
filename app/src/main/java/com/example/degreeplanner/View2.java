@@ -65,6 +65,9 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
         presenter = new Presenter(new Model(), this);
 
     }
+    public void OnSuccess ( String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
     public void OnError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
@@ -85,23 +88,26 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
                 break;
             case R.id.registerBtn:
                 if (TextUtils.isEmpty(email_str)) {
-                    OnError("Email Req");
+                    OnError("Email Required");
                 }
                 else if (TextUtils.isEmpty(pass_str)) {
-                    OnError("Pass Req");
+                    OnError("Password Required");
                 }
                 else if (pass_str.length() < 6) {
-                    OnError("password needs to be at least six characters");
+                    OnError("Password needs to be at least six characters");
                 }
                 else {
-                    boolean num = presenter.login(email_str, pass_str);
-                    if (num) {
+                    int num = presenter.login(email_str,pass_str);
+                    if (num==1) {
+                        OnSuccess ("Successfully logged in");
                         startActivity(new Intent(this, MainActivity2.class));
                         finish();
-                    } else if (!num) {
+                    } else if (num==2) {
+                        OnSuccess ("Successfully logged in");
                         startActivity(new Intent(this, MainActivity.class));
                         finish();
-                    } else {
+                    }
+                    else {
                         startActivity(new Intent(this, Register.class));
                         finish();
                     }
