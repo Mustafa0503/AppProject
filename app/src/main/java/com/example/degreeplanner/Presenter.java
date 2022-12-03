@@ -21,6 +21,10 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter {
         return model.data(email);
    }
 
+   public boolean ruthere(String email){
+       return model.ru_there(email);
+   }
+
 
 
 }

@@ -12,6 +12,7 @@ public interface Contract {
         public void addtoArrL();
     }
     public interface View2 {
+        public int isAdm(String email);
 ////        public void display();
 //      public String get_email();
 //      public String get_pass();
@@ -21,5 +22,6 @@ public interface Contract {
     }
     public interface Presenter{
         public int log(String email);
+        public boolean ruthere(String email);
     }
 }

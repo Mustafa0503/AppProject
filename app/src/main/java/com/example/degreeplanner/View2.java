@@ -60,6 +60,15 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
 
         presenter = new Presenter(new Model(), this);
     }
+    public int isAdm(String email){
+        if(email.contains("admin") ){
+            return 1;
+        }
+        else if (email.contains("student") ){
+            return 0;
+        }
+        return -1;
+    }
 
 
     public void onClick(View view) {
@@ -90,11 +99,11 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
 
 //                    int num = presenter.log(email_str);
 
-                    if (Presenter.num==1) {
+                    if (isAdm(email_str)==1) {
                         OnSuccess ("Successfully logged in");
                         startActivity(new Intent(this, MainActivity2.class));
                         finish();
-                    } else if (Presenter.num==0) {
+                    } else if  (isAdm(email_str)==0){
                         OnSuccess ("Successfully logged in");
                         startActivity(new Intent(this, MainActivity.class));
                         finish();
@@ -105,11 +114,10 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
                     }
                 }
                 break;
-
-
         }
-
     }
+//    && presenter.ruthere(email)==true
+
 
     private void OnSuccess(String successfully_logged_in) {
         Toast.makeText(this,"Successfully Logged In", Toast.LENGTH_SHORT).show();
