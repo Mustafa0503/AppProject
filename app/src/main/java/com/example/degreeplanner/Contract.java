@@ -1,15 +1,22 @@
 package com.example.degreeplanner;
 
+import android.view.View;
+
+import java.util.ArrayList;
+
 public interface Contract {
     public interface Model{
-        public int login_btn(String email,String password);
 
+//        public boolean ru_there(String email);
+////      public boolean check_null();
+//        public int data(String email);
+//        public void addtoArrL();
+        public int login_btn(String email,String pass);
     }
     public interface View2 {
-        public void onSuccess(String message);
-        public void onError (String message);
 
-       // public int isAdm(String email);
+        void OnError(String email_required);
+//        public void doWork();
 ////        public void display();
 //      public String get_email();
 //      public String get_pass();
@@ -18,13 +25,13 @@ public interface Contract {
 //    }
     }
     public interface Presenter{
-        public int login(String email, String pass_str);
-        //public boolean ruthere(String email);
+//        public int log(String email);
+//        public boolean ruthere(String email);
+        public int isAdm(String email);
+        public int login(String email,String pass);
+
+        public int error_msg(String email_str, String pass_str);
+//        public void doooWork();
+//        public void add();
     }
 }
-
-
-//public boolean ru_there(String email);
-//      public boolean check_null();
-//  public int data(String email);
-//public void addtoArrL();

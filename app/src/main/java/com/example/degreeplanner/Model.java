@@ -21,97 +21,69 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
 public class Model extends AppCompatActivity implements Contract.Model {
+        FirebaseAuth fAuth=FirebaseAuth.getInstance();
+       private FirebaseAuth.AuthStateListener mAuthListener;
+       private FirebaseAuth mAuth;
+        //static boolean num;
+        Presenter presenter;
+        public int login_btn(String email, String password) {
+            System.out.println("ge");
 
-    FirebaseAuth fAuth;
-    //static boolean num;
-    Presenter presenter;
-
-    public int login_btn(String email, String password) {
-
-        System.out.println("ge");
-        fAuth = FirebaseAuth.getInstance();
-        //fAuth.getCurrentUser();
-        System.out.println("gj0000000000ute");
-        fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-            if (fAuth.getCurrentUser() != null) {
-                System.out.println("gjgjyfhyeteyteute");
-                FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document != null) {
-                                if (document.getString("isAdmin") != null) {
-                                    //num=true;
-                                    Presenter.num =1;
+            //fAuth.getCurrentUser();
+            System.out.println("gj0000000000ute");
+            fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(authResult -> {
+                    System.out.println("gjgjyfhyeteyteute");
+                   if(fAuth.getCurrentUser()!=null) {
+                       FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                       DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                       df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                           @Override
+                           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                               if (task.isSuccessful()) {
+                                   DocumentSnapshot document = task.getResult();
+                                   if (document != null) {
+                                       if (document.getString("isAdmin") != null) {
+                                           //num=true;
+                                           Presenter.num = 1;
 //                                    startActivity(new Intent(Model.this, MainActivity2.class));
 //                                    finish();
-                                    System.out.println("num=1" + Presenter.num);
-                                } else if (document.getString("isStudent") != null) {
-                                    //num = false;
-                                    Presenter.num = 2;
-                                    System.out.println("num=2"+ Presenter.num);
+                                           System.out.println("num=1" + Presenter.num);
+                                       } else if (document.getString("isStudent") != null) {
+                                           //num = false;
+                                           Presenter.num = 2;
+                                           System.out.println("num=2" + Presenter.num);
 
-                                }
+                                       }
 
-                            }
-                        }
-                        System.out.println("num=1           " + Presenter.num);
+                                   }
+                               }
 
-                    }
-                });
+                           }
+                       });
+                   }
 
+            });
+
+            //return num;
+            if ( Presenter.num==1)
+            {
+                return 1;
             }
-        });
-        System.out.println("num=1 " + Presenter.num);
+            if ( Presenter.num==2)
+            {
+                return 2;
+            }
+            else
+            {
+                return 0;
+            }
 
-        //return num;
-//        if(a==1)
-//            return 1;
-//        if(a==2)
-//            return 2;
-//         else
-//             return 0;
-        return Presenter.num;
+        }
     }
-}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    FirebaseAuth fAuth = FirebaseAuth.getInstance();
-//    FirebaseFirestore fStore;
-//    FirebaseFirestore mDb = FirebaseFirestore.getInstance();
-//    Presenter presenter;
-//    int num;
-//    ArrayList<Integer> Num = new ArrayList<>();
-//    EditText mEmail, mPassword;
-//    Button mLoginBtn;
-//    TextView mCreateBtn, forgotTextLink;
-//    ProgressBar progressBar;
-//    ArrayList<String> email_id;
-//
-//    String[] EmailArray;
-//
-//
 //    public void addtoArrL() {
 //        FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //            @Override
@@ -122,8 +94,7 @@ public class Model extends AppCompatActivity implements Contract.Model {
 //                        String em = document.getString("email");
 //                        email_id.add(em);
 //                    }
-////                    EmailArray = new String[email_id.size()];
-////                    EmailArray = email_id.toArray(EmailArray);
+////
 //                } else {
 //                    Log.d(TAG, "get failed with ", task.getException());
 //                }
@@ -134,12 +105,10 @@ public class Model extends AppCompatActivity implements Contract.Model {
 //
 //
 //    public boolean ru_there(String email) {
-//
+//        addtoArrL();
 //        boolean x = false;
-//        System.out.println("abc");
 //        for (int i = 0; i < email_id.size(); i++) {
 //            if (email_id.get(i) == email) {
-//                System.out.println("abcd");
 //                x = true;
 //            }
 //        }
@@ -171,8 +140,8 @@ public class Model extends AppCompatActivity implements Contract.Model {
 //
 //    }
 //}
-
-
+//
+//
 
 
 

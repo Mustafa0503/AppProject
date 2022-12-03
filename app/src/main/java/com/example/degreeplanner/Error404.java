@@ -20,9 +20,9 @@ public class Error404 extends AppCompatActivity {
         finish();
     }
 
-//    public void error(View view) {
-//        Intent intent = new Intent(this, MainActivity2.class);
-//        startActivity(intent);
-//        finish();
-//    }
+    public void error(View view) {
+        Intent intent = new Intent(this, MainActivity2.class);
+        startActivity(intent);
+        finish();
+    }
 }
