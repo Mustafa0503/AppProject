@@ -1,5 +1,8 @@
 package com.example.degreeplanner;
 
+import android.text.TextUtils;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -13,21 +16,44 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter {
     public Presenter(Contract.Model model, Contract.View2 view) {
         this.model = model;
         this.view = view;
-   }
+    }
+
+    public void error_msg(String email_str, String pass_str) {
+        if (TextUtils.isEmpty(email_str)) {
+            view.OnError("Email Required");
+        } else if (TextUtils.isEmpty(pass_str)) {
+            view.OnError("Password Required");
+        } else if (pass_str.length() < 6) {
+            view.OnError("Password needs to be at least six characters");
+        } else if (!email_str.contains("@gmail.com")) {
+            view.OnError("Invalid Email");
+        }
+    }
+
+    public void OnError(String email_required) {
+        Toast.makeText(this, email_required, Toast.LENGTH_SHORT).show();
+
+    }
 
 
-
-   public int log(String email){
+    public int log(String email) {
         return model.data(email);
-   }
+    }
 
-   public boolean ruthere(String email){
-       return model.ru_there(email);
-   }
-
-
-
+    public boolean ruthere(String email) {
+        return model.ru_there(email);
+    }
 }
+//   public void doooWork(){
+//        view.doWork();
+////   }
+//   public void add(){
+//        model.addtoArrL();
+//   }
+
+
+
+
 
 
 //    private Contract.Model model;

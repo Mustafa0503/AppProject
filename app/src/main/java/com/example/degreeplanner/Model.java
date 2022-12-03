@@ -49,8 +49,7 @@ public class Model extends AppCompatActivity implements Contract.Model {
                         String em = document.getString("email");
                         email_id.add(em);
                     }
-//                    EmailArray = new String[email_id.size()];
-//                    EmailArray = email_id.toArray(EmailArray);
+//
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                 }
@@ -61,6 +60,7 @@ public class Model extends AppCompatActivity implements Contract.Model {
 
 
     public boolean ru_there(String email) {
+        addtoArrL();
         boolean x = false;
         for (int i = 0; i < email_id.size(); i++) {
             if (email_id.get(i) == email) {
