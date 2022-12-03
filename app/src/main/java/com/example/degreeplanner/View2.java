@@ -81,7 +81,7 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
 
                 if(presenter.error_msg(email_str,pass_str)==0) {
 
-                    if (presenter.login(email_str,pass_str)== 1) {
+                    if ((presenter.login(email_str,pass_str)== 1)){
                         //progressBar.setVisibility(View.VISIBLE);
                         OnSuccess("Successfully logged in");
                         startActivity(new Intent(this, MainActivity2.class));

@@ -46,6 +46,7 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter {
     }
     public int login(String email, String pass) {
         System.out.println("btn");
+        //Presenter.num=0;
 
 //        while (num == 0) {
 //            try {

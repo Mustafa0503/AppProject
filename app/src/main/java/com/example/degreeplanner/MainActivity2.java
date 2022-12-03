@@ -9,6 +9,7 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity2 extends AppCompatActivity {
+    Presenter pres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +17,9 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
     }
     public void logoutAdmin(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), Register.class));
+      FirebaseAuth.getInstance().signOut();
+        Presenter.num=0;
+        startActivity(new Intent(getApplicationContext(), View2.class));
         finish();
     }
 
