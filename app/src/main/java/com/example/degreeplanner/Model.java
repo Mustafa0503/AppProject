@@ -39,23 +39,31 @@ public class Model extends AppCompatActivity implements Contract.Model {
     String[] EmailArray;
 
 
-    public void addtoArrL() {
+    public void addtoArrL(MyCallback myCallback) {
         FirebaseFirestore.getInstance().collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    email_id = new ArrayList<>();
+                    ArrayList<String> email_id = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String em = document.getString("email");
                         email_id.add(em);
                     }
-//
+                    myCallback.onCallback(email_id);
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
+        addtoArL(new MyCallback() {
+            @Override
+            public void onCallback(ArrayList<String> eventList) {
+                Log.d("TAG", email_id.toString());
+
+            }
+        });
     }
+
 
 
 
