@@ -1,33 +1,30 @@
 package com.example.degreeplanner;
 
-import android.view.View;
-
-import java.util.ArrayList;
-
 public interface Contract {
     public interface Model{
-//        public boolean ru_there(String email);
-          public int login_btn(String email,String password);
+        public int login_btn(String email,String password);
+
     }
     public interface View2 {
+        public void onSuccess(String message);
+        public void onError (String message);
 
-        public void OnError(String message);
-        //public void OnSuccess(String message);
+       // public int isAdm(String email);
+////        public void display();
+//      public String get_email();
+//      public String get_pass();
 
 //        void onClick(android.view.View view);
 //    }
     }
     public interface Presenter{
-//        boolean check_null();
-
-        //        public void error();
-//        public void forgot();
-//
-//       public abstract ArrayList<Integer> Usertfield2(String email, String password);
-
-        int login(String email_str, String pass_str);
+        public int login(String email, String pass_str);
+        //public boolean ruthere(String email);
     }
 }
-////        public void display();
-//      public String get_email();
-//      public String get_pass();
+
+
+//public boolean ru_there(String email);
+//      public boolean check_null();
+//  public int data(String email);
+//public void addtoArrL();

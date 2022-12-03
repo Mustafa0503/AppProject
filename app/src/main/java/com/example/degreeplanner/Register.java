@@ -32,6 +32,7 @@ public class Register extends AppCompatActivity {
     String userID;
     FirebaseFirestore fstore;
     CheckBox isAdminBox, isStudentBox;
+    
 
 
     @Override
