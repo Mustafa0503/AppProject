@@ -50,4 +50,6 @@
     <string name="re">Return to Dashboard</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addC">Add Course</string>
+    <string name="mental">If you require immediate help, click the button for available resources.PrepWell</string>
+
 </resources>
