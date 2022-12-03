@@ -37,7 +37,8 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        findAllC a = new findAllC();
+        a.getAll();
         mFullname = findViewById(R.id.FullName);
         mEmail = findViewById(R.id.Email);
         mPassword = findViewById(R.id.password);
@@ -127,6 +128,7 @@ public class Register extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             });
         });
+        //mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
         mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
     }
 }

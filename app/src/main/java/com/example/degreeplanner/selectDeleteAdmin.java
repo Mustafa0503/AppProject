@@ -267,7 +267,12 @@ public class selectDeleteAdmin extends AppCompatActivity {
                     {
                         DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(i);
                         String documentID=documentSnapshot.getId();
+                        //ArrayList<String> nul = (ArrayList<String>) documentSnapshot.get("Prerequisites");
                         Ref.document(documentID).update("Prerequisites",FieldValue.arrayRemove(target));
+//                        if(nul.isEmpty())
+//                        {
+//                            Ref.document(documentID).update("Prerequisites",FieldValue.arrayUnion("None"));
+//                        }
                     }
                 }
             }

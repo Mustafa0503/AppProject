@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.content.Context;
 
 import com.example.degreeplanner.R;
+import com.example.degreeplanner.editAdmin;
 import com.example.degreeplanner.selectDeleteAdmin;
 
 public class ListFragment extends Fragment {
@@ -19,7 +20,7 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.activity_select_delete_admin, container, false);
+        View rootView = inflater.inflate(R.layout.activity_edit_admin, container, false);
         context = rootView.getContext(); // Assign your rootView to context
         Intent intent = new Intent(context, selectDeleteAdmin.class);
         startActivity(intent);

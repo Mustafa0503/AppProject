@@ -47,11 +47,11 @@ public class takenCourseList extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 if (position % 2 == 1)
                 {
-                    view.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                    view.setBackgroundColor(getResources().getColor(R.color.special));
                 }
                 else
                 {
-                    view.setBackgroundColor(getResources().getColor(R.color.purple_200));
+                    view.setBackgroundColor(getResources().getColor(R.color.special));
                 }
                 return view;
             }

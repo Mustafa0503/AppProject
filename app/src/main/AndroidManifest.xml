@@ -16,6 +16,13 @@
         android:theme="@style/Theme.DegreePlanner"
         tools:targetApi="31">
         <activity
+            android:name=".editCourseAdmin"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".editAdmin"
             android:exported="false">
             <meta-data
