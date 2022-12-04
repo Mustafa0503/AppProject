@@ -51,13 +51,13 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter {
         return model.login_btn(email, pass);
     }
 
-    public int error_toast(String email_str, String pass_str){
-         if (model.login_btn(email_str,pass_str)==-1) {
-            view.OnError("cannot login");
-             return -1;
-        }
-         return 0;
-    }
+//    public int error_toast(String email_str, String pass_str){
+//         if (model.login_btn(email_str,pass_str)==-1) {
+//            view.OnError("cannot login");
+//             return -1;
+//        }
+//         return 0;
+//    }
 
 
 }

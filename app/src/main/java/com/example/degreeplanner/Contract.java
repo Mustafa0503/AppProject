@@ -20,7 +20,7 @@ public interface Contract {
         public int isAdm(String email);
         public int login(String email,String pass);
         public int error_msg(String email_str, String pass_str);
-        public int error_toast(String email_str, String pass_str);
+//        public int error_toast(String email_str, String pass_str);
 
     }
 }
