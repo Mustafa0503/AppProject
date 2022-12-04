@@ -42,11 +42,11 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText email = (EditText) findViewById(R.id.Email);
-        email.setOnClickListener(this);
-
-        EditText pass = (EditText) findViewById(R.id.password);
-        pass.setOnClickListener(this);
+//        EditText email = (EditText) findViewById(R.id.Email);
+//        email.setOnClickListener(this);
+//
+//        EditText pass = (EditText) findViewById(R.id.password);
+//        pass.setOnClickListener(this);
 
         Button mLoginBtn = (Button) findViewById(R.id.registerBtn);
         mLoginBtn.setOnClickListener(this);
@@ -64,8 +64,8 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
         EditText email = (EditText) findViewById(R.id.Email);
         EditText pass = (EditText) findViewById(R.id.password);
 
-        String email_str = email.getText().toString().trim();
-        String pass_str = pass.getText().toString().trim();
+        String email_str = get_email();
+        String pass_str = get_pass();
 
         switch (view.getId()) {
             case R.id.createText:
@@ -88,11 +88,11 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
                         finish();
                         break;
                     }
-                    if(presenter.error_toast(email_str,pass_str)==-1){
-                        presenter.error_toast(email_str,pass_str);
-
-                        break;
-                    }
+//                    if(presenter.error_toast(email_str,pass_str)==-1){
+//                        presenter.error_toast(email_str,pass_str);
+//
+//                        break;
+//                    }
 //                    else {
 //                        Toast.makeText(this, "shutup", Toast.LENGTH_SHORT).show();
 //                        OnError("Failed to log in");
