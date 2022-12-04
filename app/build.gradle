@@ -28,6 +28,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+//gradle.settingsEvaluated { settings ->
+//    settings.plugins.withId("com.gradle.enterprise") {
+//        settings.gradleEnterprise.buildScan {
+//            termsOfServiceUrl = "https://gradle.com/terms-of-service"; termsOfServiceAgree = "yes"
+//        }
+//    }
+//}
 
 dependencies {
 

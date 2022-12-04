@@ -1,8 +1,10 @@
 package com.example.degreeplanner;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,14 +12,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class View2 extends AppCompatActivity implements View.OnClickListener, Contract.View2 {
+import java.util.Objects;
+
+public class View2 extends AppCompatActivity implements com.example.degreeplanner.Contract.View2,View.OnClickListener{
 
     private Contract.Presenter presenter;
     TextView mCreateBtn, forgotTextLink;
@@ -25,16 +33,21 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     int n;
+    Model model;
 
     public String get_email() {
         EditText email = (EditText) findViewById(R.id.Email);
         return email.getText().toString().trim();
+        //return "-@gmail.com";
     }
 
     public String get_pass() {
         EditText pass = (EditText) findViewById(R.id.password);
         return pass.getText().toString().trim();
+        //return "1234567";
     }
+
+
 
 
     @Override
@@ -55,7 +68,7 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
         reg.setOnClickListener(this);
 
 
-        presenter = new Presenter(new Model(), this);
+        presenter = new Presenter(new Model(),this);
     }
 
 
@@ -64,62 +77,43 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, Co
         EditText email = (EditText) findViewById(R.id.Email);
         EditText pass = (EditText) findViewById(R.id.password);
 
-        String email_str = get_email();
-        String pass_str = get_pass();
+        String email_str = email.getText().toString().trim();
+        String pass_str = pass.getText().toString().trim();
 
         switch (view.getId()) {
             case R.id.createText:
                 startActivity(new Intent(this, Register.class));
                 break;
+
             case R.id.registerBtn:
-
-                if(presenter.error_msg(email_str,pass_str)==0) {
-                    if ((presenter.login(email_str,pass_str)== 1) && presenter.isAdm(email_str)==1){
-                        //progressBar.setVisibility(View.VISIBLE);
-                        OnSuccess("Successfully logged in");
-                        startActivity(new Intent(this, MainActivity2.class));
-                        finish();
-                        break;
-
-                    }
-                    if (presenter.login(email_str,pass_str)==2 && presenter.isAdm(email_str)==0) {
-                        OnSuccess("Successfully logged in");
-                        startActivity(new Intent(this, MainActivity.class));
-                        finish();
-                        break;
-                    }
-//                    if(presenter.error_toast(email_str,pass_str)==-1){
-//                        presenter.error_toast(email_str,pass_str);
-//
-//                        break;
-//                    }
-//                    else {
-//                        Toast.makeText(this, "shutup", Toast.LENGTH_SHORT).show();
-//                        OnError("Failed to log in");
-//                        startActivity(new Intent(this, View2.class));
-//                        finish();
-//                        break;
-//                    }
+                if ( Presenter.num==-1){
+                    toast_msg();
                 }
-                else if(presenter.error_msg(email_str,pass_str)==1){
-                    presenter.error_msg(email_str,pass_str);
-                    break;
+                else {
+                    presenter.all_u(email_str, pass_str);
                 }
 
-              break;
+
         }
     }
 
-//    && presenter.ruthere(email)==true
 
 
-    public void OnSuccess(String successfully_logged_in) {
-        Toast.makeText(this,successfully_logged_in, Toast.LENGTH_SHORT).show();
-
+    public void checkkk(){
+         {
+            startActivity(new Intent(View2.this, MainActivity2.class));
+            finish();
+        }
     }
-    public void OnError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
+    public void checkkk22() {
+            startActivity(new Intent(View2.this, MainActivity.class));
+            finish();
+        }
+    public void toast_msg() {
+        Toast.makeText(this, "Invalid Login", Toast.LENGTH_SHORT).show();
     }
+
+
 
 }
+
