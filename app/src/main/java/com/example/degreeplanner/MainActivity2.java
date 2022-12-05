@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity2 extends AppCompatActivity {
+    Presenter pres;
 
     ImageView im, im2;
     @Override
