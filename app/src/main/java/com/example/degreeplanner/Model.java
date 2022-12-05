@@ -1,5 +1,6 @@
 package com.example.degreeplanner;
 
+import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,8 +31,10 @@ public class Model extends AppCompatActivity implements Contract.Model {
     static int number;
 
     public interface UserCallBack {
-        void check_user(int exist);
+        int check_user(int exist);
+        boolean isUser(boolean u);
     }
+
 
     public void all_users(String email, String password, UserCallBack UserCallBack) {
         System.out.println("gj0000000000ute");
@@ -40,7 +43,6 @@ public class Model extends AppCompatActivity implements Contract.Model {
             number=1;
             System.out.println("gjgjyfhyeteyteute");
             if (fAuth.getCurrentUser() != null) {
-//                FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -58,20 +60,52 @@ public class Model extends AppCompatActivity implements Contract.Model {
                         System.out.println("hellooooo");
 
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        FirebaseAuth.getInstance().signOut();
+                        }
+                    });
 
 
             }
+            UserCallBack.isUser(true);
 
-        }).addOnFailureListener(e -> {
-            System.out.println("shutup");
-            Presenter.num = -1;
-            System.out.println("presenter num = " + Presenter.num);
-
-//                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                UserCallBack.check_user(0);
+            }
         });
         System.out.println("the num = " + number);
 
 
     }
+
+//    public void all_us(String email_str, String pass_str){
+//        all_users(email_str, pass_str,new Model.UserCallBack() {
+//            @Override
+//            public int check_user(int exist) {
+//                if (exist == 1){
+//                    return 1;
+//                }
+//                if(exist == 2){
+//                    return 2;
+//                }
+//                if(exist== 0){
+//                    return 0;
+//                }
+//                return -1;
+//            }
+//
+//            @Override
+//            public boolean isUser(boolean u) {
+//                if(u){
+//                    return true;
+//                }
+//                return false;
+//            }
+//
+//        });
+//    }
 }

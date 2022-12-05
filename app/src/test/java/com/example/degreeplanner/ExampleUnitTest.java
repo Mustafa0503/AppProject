@@ -4,8 +4,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,48 +20,53 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest {
     @Mock
-    View2 view;
+    Contract.Login view;
 
     @Mock
-    Model model;
+    Contract.Model model;
 
     @Mock
-    Model.UserCallBack UserCallBack;
+    Model.UserCallBack userCallBack;
 
-//    @Test
-//    public void testPresenter() {
-////        when(view.get_email().isEmpty());
-////        when(model.login_btn(view.get_email(), view.get_pass()));
-//        assertEquals(view.get_email(), null);
-//
-//    }
-//
 
     @Test
-    public void testPresenter2() {
-//        when(view.get_email()).thenReturn("");
-//        Presenter presenter = null;
-       
-//        when(model.all_users("", "1234567", UserCallBack));
-        Presenter presenter = new Presenter(model, view);
-        when(view.error_msg("admin", "")).thenReturn(1);
+    public void testPresenter() {
+        assertEquals(view.get_email(), null);
 
-//        presenter.all_u("sadmin@gmail.com", "1234567");
-        InOrder order = inOrder(model, view);
-        verify(view).error_msg("admin", null);
     }
 
+
 //    @Test
+//    public void testPresenter2() {
+//    //    when(model.all_users("admin10@gmail.com","1234567", userCallBack)).thenReturn(null);
+//        when(userCallBack.check_user(1)).thenReturn(1);
+//        Presenter presenter = new Presenter(model, view);
+//        presenter.all_u("admin10@gmail.com","1234567");
+//        verify(view).NO();
+//
+//    }
+
+//    @Test
+//    public void testPresenter(){
+//        when(model.all_users("admin10@");)
+//    }
+
+//    @Test
+//    public void testInfo(){
+//        when(view.get_email()).thenReturn("admin10@gmail.com");
+//    }
+//
+////    @Test
 //    public void testPresenter3() {
 //        when(view.get_email()).thenReturn("");
 //        when(model.login_btn("", "1234567")).thenReturn(-1);
 //        Presenter presenter = new Presenter(model, view);
 //        presenter.error_msg("", "1234567");
-////        InOrder order = inOrder(model, view);
+//        InOrder order = inOrder(model, view);
 //        order.verify(model).login_btn("", "1234567");
 //        order.verify(view).OnSuccess("Successfully logged in");
 //    }
-
+//
 //    @Test
 //    public void testPresenter4() {
 //        when(view.get_email()).thenReturn("sadmin@gmail.com");

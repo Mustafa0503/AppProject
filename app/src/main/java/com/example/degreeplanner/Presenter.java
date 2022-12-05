@@ -5,10 +5,10 @@ import android.text.TextUtils;
 
 public class Presenter implements Contract.Presenter {
     private Contract.Model model;
-    public Contract.View2 view;
+    public Contract.Login view;
     static int num;
 
-    public Presenter(Contract.Model model, Contract.View2 view) {
+    public Presenter(Contract.Model model, Contract.Login view) {
         this.model = model;
         this.view = view;
     }
@@ -31,35 +31,48 @@ public class Presenter implements Contract.Presenter {
 //
 //        return 0;
 //    }
+        public String getInfo(String email, String password){
+            if (email == "" || email == null) {
+                return "Email is required";
+            }
+            if (password == "" || password == null) {
+                return "Password is Required";
+            }
+            if (password.length() < 6) {
+                return "Password Must be >=6";
+            }
+            return "Login Successful";
+        }
 
     public void all_u(String email_str, String pass_str){
-
         model.all_users(email_str, pass_str,new Model.UserCallBack() {
+            @Override
+            public int check_user(int exist) {
+                if (exist == 1){
+                    view.Admin();
+                    return 1;
+                }
+                if(exist == 2){
+                    view.Student();
+                    return 2;
+                }
+                if(exist== 0){
+                    view.NO();
+                    return 0;
+                }
+                return -1;
+            }
 
             @Override
-            public void check_user(int exist) {
-                if (exist == 1){
-                    System.out.println("admin xheck");
-
-                    view.checkkk();
-
+            public boolean isUser(boolean u) {
+                if(u){
+                    return true;
                 }
-                if (exist == 2){
-                    System.out.println("stu xheck");
-
-                    view.checkkk22();
-
-                }
-
+                return false;
             }
 
         });
-        if(Presenter.num== -1){
-            System.out.println("hiiiiiiiiiii");
-            view.toast_msg();
-        }
     }
-
 
 
     public void msssssssssssssssssssg(){

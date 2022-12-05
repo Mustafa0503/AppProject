@@ -1,5 +1,6 @@
 package com.example.degreeplanner;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -15,11 +16,11 @@ import android.widget.TabHost;
 import com.google.android.material.tabs.TabLayout;
 
 public class Courses extends AppCompatActivity {
-     EditText courseName, courseCode, offered, prereqs;
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     MyViewPagerAdapter myViewPagerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
