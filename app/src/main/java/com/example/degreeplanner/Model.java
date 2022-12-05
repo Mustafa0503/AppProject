@@ -36,6 +36,70 @@ public class Model extends AppCompatActivity implements Contract.Model {
     }
 
 
+    public int login_btn(String email, String password) {
+        System.out.println("ge");
+
+        //fAuth.getCurrentUser();
+        System.out.println("gj0000000000ute");
+        fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+            System.out.println("gjgjyfhyeteyteute");
+            if(fAuth.getCurrentUser()!=null) {
+                FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot document) {
+//                               if (task.isSuccessful()) {
+//                                   DocumentSnapshot document = task.getResult();
+                        if (document != null) {
+                            if (document.getString("isAdmin") != null) {
+                                //num=true;
+                                Presenter.num = 1;
+
+//                                    startActivity(new Intent(Model.this, MainActivity2.class));
+//                                    finish();
+                                System.out.println("num=1" + Presenter.num);
+                            } else if (document.getString("isStudent") != null) {
+                                //num = false;
+                                Presenter.num = 2;
+                                System.out.println("num=2" + Presenter.num);
+
+                            }
+                            else{
+                                Presenter.num = -1;
+                            }
+
+
+                        }
+                    }
+                });
+
+            }
+
+
+        });
+        //FirebaseAuth.getInstance().signOut();
+
+        //return num;
+        if ( Presenter.num==1)
+        {
+            return 1;
+        }
+        else if ( Presenter.num==2)
+        {
+            return 2;
+        }
+        else{
+            System.out.println("num= -1    " + Presenter.num);
+            return -1;
+        }
+
+
+    }
+
+
+
+
     public void all_users(String email, String password, UserCallBack UserCallBack) {
         System.out.println("gj0000000000ute");
         System.out.println(email);

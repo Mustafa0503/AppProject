@@ -83,7 +83,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, co
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
-                presenter.all_u(email_str, pass_str);
+//                presenter.all_u(email_str, pass_str);
                 progressBar.setVisibility(View.GONE);
 
         }

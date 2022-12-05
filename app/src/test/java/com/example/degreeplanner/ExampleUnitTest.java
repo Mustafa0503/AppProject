@@ -51,10 +51,12 @@ public class ExampleUnitTest {
 //        when(model.all_users("admin10@");)
 //    }
 
-//    @Test
-//    public void testInfo(){
-//        when(view.get_email()).thenReturn("admin10@gmail.com");
-//    }
+    @Test
+    public void testInfo(){
+        when(view.get_email()).thenReturn("admin10@gmail.com");
+        when(view.get_pass()).thenReturn("1234567");
+        verify(view).Admin();
+    }
 //
 ////    @Test
 //    public void testPresenter3() {

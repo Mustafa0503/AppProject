@@ -34,10 +34,12 @@ public class Register extends AppCompatActivity {
     CheckBox isAdminBox, isStudentBox;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         mFullname = findViewById(R.id.FullName);
         mEmail = findViewById(R.id.Email);
         mPassword = findViewById(R.id.password);
@@ -91,6 +93,12 @@ public class Register extends AppCompatActivity {
             if (password.length() < 6) {
                 mPassword.setError("Password must be more than 6");
             }
+            if (email.contains("student") && isAdminBox.isChecked()) {
+                mEmail.setError("Choose the checkbox corresponding to your email");
+            }
+            if (email.contains("admin") && isStudentBox.isChecked()) {
+                mEmail.setError("Choose the checkbox corresponding to your email");
+            }
 
             progressBar.setVisibility(View.VISIBLE);
 
@@ -127,7 +135,6 @@ public class Register extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             });
         });
-        //mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
-        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
+        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), View2.class)));
     }
 }
