@@ -67,21 +67,42 @@ public class findAllC extends AppCompatActivity {
                     }
                     ArrayList<String> target = new ArrayList<>();
                     //target.add("CSCA08");
-                    target.add("CSCB09");
+                   // target.add("CSCB09");
+                   // target.add("A08");
+                    //target.add("A48");
+                    target.add("D18");
+                    target.add("D01");
+                    target.add("D25");
+                    //target.add("A37");
                     //target.add("CSCB07");
 //                    target.add("CSCB31");
-                   target.add("CSCA37");
+                  // target.add("CSCA37");
 //                    target.add("CSCB07");
 //                    target.add("CSCA22");
 //                    target.add("CSCA08");
 //                    target.add("CSCA48");
                     ArrayList<String> result = rec(target,allC);
+                    ArrayList<String> userCourses = new ArrayList<String>();
+                       userCourses.add("A08");
+                       userCourses.add("A48");
+                       userCourses.add("B09");
+                       userCourses.add("B07");
+                       userCourses.add("C01");
+//                    userCourses.add("B52");
+//                    userCourses.add("A37");
+//                    userCourses.add("A48");
+        //                userCourses.add("A67");
+            //           userCourses.add("A08");
+//                    userCourses.add("A31");
+//                    userCourses.add("B36");
                     for(int i=0;i<target.size();i++)
                     {
                         result.add(target.get(i));
                     }
                     removeDup(result);
+                    //result.remove("A08");
                     System.out.println(result);
+
                     //remove from taken courses list as well
                     ArrayList<String> empty = new ArrayList<String>();
                     ArrayList<ArrayList<String>> emptyy = new ArrayList<ArrayList<String>>();
@@ -92,15 +113,19 @@ public class findAllC extends AppCompatActivity {
                     LinkedHashMap<String ,ArrayList<String>> time = new LinkedHashMap<>();
                     LinkedHashMap<String ,ArrayList<String>> ref = new LinkedHashMap<>();
                     ArrayList<String> a = new ArrayList<>();
+
                     for(int i=3; i<result.size()+3;i++)
                     {
                         time.put("202"+i + " Winter",new ArrayList<String>() );
                         time.put("202"+i + " Summer", new ArrayList<String>());
                         time.put("202"+i + " Fall", new ArrayList<String>());
                     }
+
                     ArrayList<String> takenCourses = new ArrayList<String>();
                     empty = getSameTime(emptyy,result,result.size(),takenCourses);
+
                     System.out.println(empty);
+                    //remove taken courses from empty
                     System.out.println("HashMap###################");
 
 
@@ -113,19 +138,26 @@ public class findAllC extends AppCompatActivity {
 
 
                     ArrayList<String> takenCourses1 = new ArrayList<String>();
-                    ArrayList<String> userCourses = new ArrayList<String>();
                     time = generator(time, empty, allC, takenCourses1,userCourses);
+                    changeHash(time, userCourses);
                     ref = time;
-                    int i=0;
+                    //removing the empty values
+                    ArrayList<String>allKey = new ArrayList<>();
                     for(String key : time.keySet())
                     {
                         if(time.get(key).isEmpty())
                         {
-                          //  ref.remove(key);
+                            allKey.add(key);
                         }
                     }
-                    System.out.println(ref);
+                    for(int i =0;i<allKey.size();i++)
+                    {
+                        time.remove(allKey.get(i));
+                    }
 
+                  //  System.out.println(time);
+                    //System.out.println(userCourses);
+                    System.out.println(time);
                     //timeLine.add(new info("F", 21, "CSCA08"));
                     //System.out.println(timeLine.get(0).offerSession);
 //                    for(int i=0;i<target.size();i++)
@@ -223,78 +255,80 @@ public class findAllC extends AppCompatActivity {
         });
 
     }
+    public void changeHash(LinkedHashMap<String,ArrayList<String>>time, ArrayList<String> takenCourses)
+    {
+        for(int i = 0; i<takenCourses.size();i++)
+        {
+            for(String key:time.keySet())
+            {
+                if(time.get(key).contains(takenCourses.get(i)))
+                {
+                    ArrayList<String> temp  = new ArrayList<String >();
+                    temp = time.get(key);
+                    temp.remove(takenCourses.get(i));
+                   // time.replace(key, temp);
+
+
+                }
+            }
+        }
+    }
     public LinkedHashMap<String, ArrayList<String>> generator(LinkedHashMap<String,ArrayList<String>>line,
                                                               ArrayList<String>sameLevel,
                                                               ArrayList<findAllC>fire,ArrayList<String>planned,
                                                               ArrayList<String>userCourses){
+       // System.out.println(userCourses);
         ArrayList<String> ref = sameLevel;
         while(!ref.isEmpty()){
             //System.out.println(ref);
             String temp = ref.get(0);
-           //// for(int i=0;i<temp.size();i++)
-            ////{
-                int pos=0;
+                //// for(int i=0;i<temp.size();i++)
+                ////{
+                int pos = 0;
                 pos = find(fire, temp);
-                ArrayList<String>offered = fire.get(pos).offerSession;
+                ArrayList<String> offered = fire.get(pos).offerSession;
                 //System.out.println(fire.get(pos).courseCode);
 
-                for (String data : line.keySet())
-                {
+                for (String data : line.keySet()) {
 
                     //System.out.println(planned);
-                    if(offered.contains("Winter")&&data.contains("Winter"))
-                    {
-                           // planned.addAll(line.get(data));
-                        if(fire.get(pos).pre.isEmpty()||fire.get(pos).pre.get(0).equals("None")||checkAllPre(fire.get(pos).pre,planned)||checkAllPre(fire.get(pos).pre,userCourses))
-                        {
+                    if (offered.contains("Winter") && data.contains("Winter")) {
+                        // planned.addAll(line.get(data));
+                        if (fire.get(pos).pre.isEmpty() || fire.get(pos).pre.get(0).equals("None") || checkAllPre(fire.get(pos).pre, planned) || checkAllPre(fire.get(pos).pre, userCourses)) {
                             line.get(data).add(fire.get(pos).courseCode);
                             planned.clear();
                             break;
 
-                        }
-                        else
-                        {
+                        } else {
                             planned.addAll(line.get(data));
                             continue;
                         }
-                    }
-
-                    else if(offered.contains("Summer")&&data.contains("Summer"))
-                    {
+                    } else if (offered.contains("Summer") && data.contains("Summer")) {
 
                         //planned.addAll(line.get(data));
-                        if(fire.get(pos).pre.isEmpty()||fire.get(pos).pre.get(0).equals("None")||checkAllPre(fire.get(pos).pre,planned)||checkAllPre(fire.get(pos).pre,userCourses))
-                        {
+                        if (fire.get(pos).pre.isEmpty() || fire.get(pos).pre.get(0).equals("None") || checkAllPre(fire.get(pos).pre, planned) || checkAllPre(fire.get(pos).pre, userCourses)) {
                             line.get(data).add(fire.get(pos).courseCode);
                             planned.clear();
                             break;
 
-                        }
-
-                        else
-                        {
+                        } else {
                             planned.addAll(line.get(data));
                             continue;
                         }
-                    }
-                    else if(offered.contains("Fall")&&data.contains("Fall"))
-                    {
+                    } else if (offered.contains("Fall") && data.contains("Fall")) {
 
                         //planned.addAll(line.get(data));
-                        if(fire.get(pos).pre.isEmpty()||fire.get(pos).pre.get(0).equals("None")||checkAllPre(fire.get(pos).pre,planned)||checkAllPre(fire.get(pos).pre,userCourses))
-                        {
+                        if (fire.get(pos).pre.isEmpty() || fire.get(pos).pre.get(0).equals("None") || checkAllPre(fire.get(pos).pre, planned) || checkAllPre(fire.get(pos).pre, userCourses)) {
                             line.get(data).add(fire.get(pos).courseCode);
                             planned.clear();
                             break;
 
-                        }
-                        else
-                        {
+                        } else {
                             planned.addAll(line.get(data));
                             continue;
                         }
                     }
-                    System.out.println(line.get(data));
+                    // System.out.println(line.get(data));
                     planned.addAll(line.get(data));
 //                    if(temp.size()>1)
 //                    {
@@ -399,6 +433,7 @@ public class findAllC extends AppCompatActivity {
                 }
             }
         }
+
     }
     public ArrayList<String> getSameTime(ArrayList<ArrayList<String>>empty,ArrayList<String> result,
                                                     int size,ArrayList<String>planned){
@@ -415,11 +450,13 @@ public class findAllC extends AppCompatActivity {
                 pos = find(allC, result.get(i));
                 if (allC.get(pos).pre.isEmpty() || allC.get(pos).pre.get(0).equals("None") ||checkAllPre(allC.get(pos).pre, planned))
                 {
-
-                    sum.add(order,allC.get(pos).courseCode);
-                    order++;
-                    planned.add(allC.get(pos).courseCode);
-                    ref.remove(allC.get(pos).courseCode);
+                    //if(!result.contains(allC.get(pos).courseCode))
+                   // {
+                        sum.add(order, allC.get(pos).courseCode);
+                        order++;
+                        planned.add(allC.get(pos).courseCode);
+                        ref.remove(allC.get(pos).courseCode);
+                    //}
 
                 }
             }
