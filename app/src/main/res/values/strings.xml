@@ -56,4 +56,5 @@
     <string name="session">Session</string>
     <string name="year">Year</string>
     <string name="for_all">Session Offered</string>
+    <string name="add">Add Course</string>
 </resources>

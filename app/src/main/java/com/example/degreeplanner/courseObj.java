@@ -6,6 +6,7 @@ public class courseObj {
     String code;
     ArrayList<String> offerSession;
     ArrayList<String> pre;
+
     public courseObj(){
     }
 
