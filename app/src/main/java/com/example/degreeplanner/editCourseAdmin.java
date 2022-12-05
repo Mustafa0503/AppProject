@@ -2,59 +2,58 @@ package com.example.degreeplanner;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class adminCourse extends AppCompatActivity implements MultiSpinnerListener{
-
+public class editCourseAdmin extends AppCompatActivity implements MultiSpinnerListener{
     EditText course, code, session;
-    Spinner spL, spR;
     Button but;
     FirebaseFirestore db;
-    TextView pre;
-    List<String> preR;
+    TextView pre, coursename;
     String co="", cod="", se="";
+    List<String> preR;
     ArrayList<String> existingC;
+    ListView list;
     boolean s = false;
     boolean[] selected, selSession;
     ArrayList<Integer> courseList = new ArrayList<>();
     ArrayList<String> sesh = new ArrayList<>();
     ArrayList<String> sessionDB = new ArrayList<>();
-    //ArrayList<String> year = new ArrayList<>();
-    //ArrayAdapter<String> leftAdapter, rightAdapter;
+    editAdmin ob = new editAdmin();
+    String val = ob.getItemval();
+
     private FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private static final String COURSE = "course";
 
@@ -65,60 +64,63 @@ public class adminCourse extends AppCompatActivity implements MultiSpinnerListen
     public void onItemsSelected(boolean[] selected){
 
     }
-    public boolean isInArray(String arr[], String code){
-        for(int i=0; i<arr.length; i++){
-            if(arr[i].equals(code)){
-                return true;
-            }
-        }
-        return false;
-    }
     public void doWork(){
         db = FirebaseFirestore.getInstance();
-        pre = findViewById(R.id.preReqs);
+        pre = findViewById(R.id.prereqs);
 
         selected = new boolean[courseArray.length];
-        course = (EditText) findViewById(R.id.courseName);
-        code = (EditText) findViewById(R.id.courseCode);
-        session = findViewById(R.id.offered);
+        course = findViewById(R.id.coursename);
+        code = findViewById(R.id.Coursecode);
+        //session = findViewById(R.id.session);
         selSession = MultiSpinner.getSelected();
-        but = findViewById(R.id.addC);
+        but = findViewById(R.id.FinishBtn);
+        list = findViewById(R.id.adminlistview);
+
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
                 co = course.getText().toString();
                 cod = code.getText().toString();
-                for(int i=0; i<3; i++){
-                    if(selSession[i]==true){
+                for (int i = 0; i < 3; i++) {
+                    if (selSession[i] == true) {
                         sessionDB.add(sesh.get(i));
                     }
                 }
-
-                if(!co.equals("") && !cod.equals("") && !existingC.contains(cod) && !sessionDB.isEmpty() && !preR.isEmpty()) {
-
+                if (!co.equals("") && !cod.equals("") && !existingC.contains(cod) && !sessionDB.isEmpty() && !preR.isEmpty()) {
                     Map<String, Object> newCourse = new HashMap<>();
                     newCourse.put("Course Name", co);
                     newCourse.put("Course Code", cod);
                     newCourse.put("Session Offered", sessionDB);
                     newCourse.put("Prerequisites", preR);
-                    db.collection("course").add(newCourse).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                db.collection("course").add(newCourse).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Toast.makeText(editCourseAdmin.this, "Successful", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                    finish();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(editCourseAdmin.this, "Failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+                    mDb.collection("course").whereEqualTo("Course Code", val).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(adminCourse.this, "Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), adminCourse.class));
-                            finish();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(adminCourse.this, "Failed", Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                            String documentID = documentSnapshot.getId();
+                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("course").document(documentID);
+                            documentReference.update("Course Code", cod);
+                            documentReference.update("Course Name", co);
+                            documentReference.update("Session Offered", sessionDB);
+                            documentReference.update("Prerequisites", preR);
+
                         }
                     });
-
-                } else {
-                    Toast.makeText(adminCourse.this, "Invalid Input", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(editCourseAdmin.this, "Invalid Input", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -126,7 +128,7 @@ public class adminCourse extends AppCompatActivity implements MultiSpinnerListen
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(adminCourse.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(editCourseAdmin.this);
                 builder.setTitle("Select Prerequisites");
                 builder.setCancelable(false);
                 builder.setMultiChoiceItems(courseArray, selected, new DialogInterface.OnMultiChoiceClickListener() {
@@ -188,36 +190,18 @@ public class adminCourse extends AppCompatActivity implements MultiSpinnerListen
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_course);
-
-//        spL = findViewById(R.id.spinL);
-//        spR = findViewById(R.id.spinR);
-//        int curYr = Calendar.getInstance().get(Calendar.YEAR);
-//
-//        sesh.add(0, "Session");
-//        sesh.add("Summer");
-//        sesh.add("Fall");
-//        sesh.add("Winter");
-//        year.add(0, "Year");
-//        for(int i=0; i<5; i++){
-//            year.add(i+1, Integer.toString(curYr + i));
-//        }
-//        leftAdapter = new ArrayAdapter<>(this, R.layout.item_dropdown, sesh);
-//        leftAdapter.setDropDownViewResource(R.layout.dd_item);
-//        rightAdapter = new ArrayAdapter<>(this, R.layout.item_dropdown2, year);
-//        rightAdapter.setDropDownViewResource(R.layout.dd_item);
-//        spL.setAdapter(leftAdapter);
-//        spR.setAdapter(rightAdapter);
+        setContentView(R.layout.activity_edit_course_admin);
+        coursename = findViewById(R.id.textView2);
+        coursename.setText("Modify " + val);
 
         sesh.add(0, "Summer");
         sesh.add(1, "Fall");
         sesh.add(2, "Winter");
 
-        MultiSpinner multiSpinner = (MultiSpinner) findViewById(R.id.multi_spinner);
-        multiSpinner.setItems(sesh, getString(R.string.for_all), this);
-
+        MultiSpinner multiSpinner = (MultiSpinner) findViewById(R.id.multi_spinner2);
+        multiSpinner.setItems(sesh, "", this);
         mDb.collection(COURSE).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -225,11 +209,14 @@ public class adminCourse extends AppCompatActivity implements MultiSpinnerListen
                     existingC = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String cou = document.getString("Course Code");
-                        existingC.add(cou);
+                        if(!cou.equals(val)){
+                            existingC.add(cou);
+                        }
+
                     }
 
                     existingC.add("None");
-                    courseArray=new String[existingC.size()];
+                    courseArray = new String[existingC.size()];
                     courseArray = existingC.toArray(courseArray);
                     doWork();
                 } else {
@@ -237,26 +224,10 @@ public class adminCourse extends AppCompatActivity implements MultiSpinnerListen
                 }
             }
         });
-
     }
-
-
-    public void adDash(View view) {
-        Intent intent = new Intent(this, MainActivity2.class);
+    public void gg2(View view) {
+        Intent intent = new Intent(this, editAdmin.class);
         startActivity(intent);
         finish();
     }
-
-    public void openThis(View view) {
-        Intent intent = new Intent(this, adminCourse.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void delAdmin(View view) {
-        Intent intent = new Intent(this, selectDeleteAdmin.class);
-        startActivity(intent);
-        finish();
-    }
-
 }

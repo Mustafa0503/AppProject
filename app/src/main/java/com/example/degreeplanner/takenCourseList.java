@@ -1,12 +1,14 @@
 package com.example.degreeplanner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,7 +39,24 @@ public class takenCourseList extends AppCompatActivity {
         listview.setPaintFlags(listview.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
 
         ArrayList<String> arrayList = new ArrayList<>();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+            {
+                View view = super.getView(position, convertView, parent);
+                if (position % 2 == 1)
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.special));
+                }
+                else
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.special));
+                }
+                return view;
+            }
+
+        };
         FirebaseFirestore.getInstance().collection("users")
                 .document(userID).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
