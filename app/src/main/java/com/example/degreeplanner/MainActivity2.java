@@ -41,13 +41,18 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
+    public void pfForAdmin(View view){
+        Intent c1 = new Intent(this, pfpForAdmin.class);
+        startActivity(c1);
+        finish();
+    }
     public void test1(View view) {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), editAdmin.class));
         finish();
     }
     public void openAsk(View view) {
-        Intent intent = new Intent(this, ProfilePage.class);
+        Intent intent = new Intent(this, pfpForAdmin.class);
         startActivity(intent);
         finish();
     }
