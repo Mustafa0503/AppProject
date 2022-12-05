@@ -32,16 +32,17 @@
         android:id="@+id/box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
         android:layout_marginRight="20dp"
+        android:button="@drawable/imcheckbox"
+        android:minHeight="48dp"
+        android:padding="5dp"
         android:text="@string/add"
+
+        android:theme="@style/colored"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintLeft_toRightOf="@id/imageView2"
-
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:button="@drawable/imcheckbox"
-        android:theme="@style/colored"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -102,8 +103,10 @@
         app:layout_constraintLeft_toLeftOf="@id/button7"
         app:layout_constraintTop_toBottomOf="@id/button7"
         android:onClick="mainAct"
+        android:background="@drawable/selectbtn"
         app:layout_anchor="@+id/textInputLayout"
         app:layout_anchorGravity="bottom|center" />
+
 
     <Button
         android:id="@+id/button7"
@@ -114,6 +117,7 @@
         android:text="@string/s3"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="0dp"
+        android:background="@drawable/selectbtn"
         android:textAllCaps="true"
         app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"

@@ -217,33 +217,6 @@ public class selectDeleteAdmin extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //FirebaseFirestore fstore = FirebaseFirestore.getInstance();
 //        Map<String,Object> crs = new HashMap<>();
 //        crs.put("courses", takenCourses);
