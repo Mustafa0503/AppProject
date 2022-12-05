@@ -12,7 +12,7 @@
     <Button
         android:id="@+id/button8"
         android:layout_width="337dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:background="@drawable/bluebtn"
         android:onClick="mainAct"
         android:text="@string/re"
@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.995"/>
+        app:layout_constraintVertical_bias="0.995" />
 
     <TextView
         android:id="@+id/fN2"
@@ -41,7 +41,7 @@
     <Button
         android:id="@+id/button4"
         android:layout_width="251dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:background="@drawable/bluebtn"
         android:text="@string/changepfp"
         android:textColor="@color/white"
@@ -192,8 +192,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView3"
-        android:layout_width="122dp"
-        android:layout_height="179dp"
+        android:layout_width="125dp"
+        android:layout_height="141dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
