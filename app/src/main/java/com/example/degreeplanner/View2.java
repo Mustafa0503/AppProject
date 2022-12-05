@@ -11,15 +11,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class View2 extends AppCompatActivity implements View.OnClickListener, com.example.degreeplanner.Contract.Login {
+import com.google.firebase.auth.FirebaseAuth;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+public class View2 extends AppCompatActivity implements View.OnClickListener, Contract.View2 {
 
     private Contract.Presenter presenter;
     TextView mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
-    EditText email, pass;
-    Button mLoginBtn;
-
-
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    int n;
 
 
     public String get_email() {
@@ -32,28 +35,29 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, co
         return pass.getText().toString().trim();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        email = (EditText) findViewById(R.id.Email);
-        email.setOnClickListener(this);
+//        EditText email = (EditText) findViewById(R.id.Email);
+//        email.setOnClickListener(this);
+//
+//        EditText pass = (EditText) findViewById(R.id.password);
+//        pass.setOnClickListener(this);
 
-        pass = (EditText) findViewById(R.id.password);
-        pass.setOnClickListener(this);
-
-        mLoginBtn = (Button) findViewById(R.id.registerBtn);
+        Button mLoginBtn = (Button) findViewById(R.id.registerBtn);
         mLoginBtn.setOnClickListener(this);
-
-        progressBar = findViewById(R.id.progressBar2);
 
         TextView reg = (TextView) findViewById(R.id.createText);
         reg.setOnClickListener(this);
 
-        presenter = new Presenter(new Model(),this);
 
+        presenter = new Presenter(new Model(), this);
     }
+
+
 
 
 
@@ -61,184 +65,76 @@ public class View2 extends AppCompatActivity implements View.OnClickListener, co
         EditText email = (EditText) findViewById(R.id.Email);
         EditText pass = (EditText) findViewById(R.id.password);
 
-        String email_str = email.getText().toString().trim();
-        String pass_str = pass.getText().toString().trim();
+        String email_str = get_email();
+        String pass_str = get_pass();
 
         switch (view.getId()) {
             case R.id.createText:
                 startActivity(new Intent(this, Register.class));
                 break;
-
             case R.id.registerBtn:
                 presenter.login(email_str, pass_str);
-                if (presenter.getInfo(email_str, pass_str) == "Email is required") {
-                    email.setError("Email is required");
-                    return;
-                }
-                if (presenter.getInfo(email_str, pass_str) == "Password is Required") {
-                    pass.setError("Password is Required");
-                    return;
-                }
-                if (presenter.getInfo(email_str, pass_str) == "Password Must be >=6") {
-                    pass.setError("Password Must be >=6");
-                    return;
-                }
-                progressBar.setVisibility(View.VISIBLE);
-//                presenter.all_u(email_str, pass_str);
-                progressBar.setVisibility(View.GONE);
 
+                if(presenter.error_msg(email_str,pass_str)==0) {
+                    if ((Presenter.num== 1)){
+                        //progressBar.setVisibility(View.VISIBLE);
+                        OnSuccess();
+                        startActivity(new Intent(this, MainActivity2.class));
+                        finish();
+                        break;
+
+                    }
+                    if (Presenter.num==2 && presenter.isAdm(email_str)==0) {
+                        OnSuccess();
+                        startActivity(new Intent(this, MainActivity.class));
+                        finish();
+                        break;
+                    }
+//                    if(presenter.error_toast(email_str,pass_str)==-1){
+//                        presenter.error_toast(email_str,pass_str);
+//
+//                        break;
+//                    }
+//                    else {
+//                        Toast.makeText(this, "shutup", Toast.LENGTH_SHORT).show();
+//                        OnError("Failed to log in");
+//                        startActivity(new Intent(this, View2.class));
+//                        finish();
+//                        break;
+//                    }
+                }
+                else if(presenter.error_msg(email_str,pass_str)==1){
+                    presenter.error_msg(email_str,pass_str);
+                    break;
         }
+                break;
+
+    }
     }
 
-    @Override
-    public void Admin() {
-        Toast.makeText(this,"Admin Log In Success", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+    public void OnError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void OnSuccess() {
+        Toast.makeText(this,"Successfully Logged in", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainActivity2.class));
+        finish();
+
+    }
+
+    public void OnSuccessStu() {
+        Toast.makeText(this,"Successfully Logged in", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+
+    }
+
+    public void displayAdm(String email_str, String pass_str){
+        OnSuccess();
+        startActivity(new Intent(this, MainActivity2.class));
         finish();
     }
-
-    @Override
-    public void Student() {
-        Toast.makeText(this,"Student Log In Success", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        finish();
-    }
-
-    @Override
-    public void NO(){
-        Toast.makeText(this,"Cannot Log in", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void toast_msg() {
-    }
-
-
-
-
-//
-//    static EditText mEmail;
-//    static EditText mPassword;
-//    Button mLoginBtn;
-//    TextView mCreateBtn, forgotTextLink;
-//    ProgressBar progressBar;
-//    FirebaseAuth fAuth;
-//    FirebaseFirestore fStore;
-//    Model model;
-//
-//    public String get_email(){
-//        EditText email = (EditText) findViewById(R.id.Email);
-//        return email.getText().toString().trim();
-//    }
-//    public String get_pass(){
-//        EditText pass = (EditText) findViewById(R.id.password);
-//        return pass.getText().toString().trim();
-//    }
-//    //@SuppressLint("MissingInflatedId")
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
-//        mEmail = findViewById(R.id.Email);
-//        mPassword = findViewById(R.id.password);
-//        mLoginBtn = findViewById(R.id.registerBtn);
-//        mCreateBtn = findViewById(R.id.createText);
-//        fAuth = FirebaseAuth.getInstance();
-//        progressBar = findViewById(R.id.progressBar2);
-//        forgotTextLink = findViewById(R.id.forgotpassword);
-//        model = new Model();
-//
-//        mLoginBtn.setOnClickListener(view -> {
-//            String email = mEmail.getText().toString().trim();
-//            String password = mPassword.getText().toString().trim();
-//            if (TextUtils.isEmpty(email)) {
-//                mEmail.setError("Email is required");
-//                return;
-//            }
-//            if (TextUtils.isEmpty(password)) {
-//                mPassword.setError("Password is Required");
-//                return;
-//            }
-//            if (password.length() < 6) {
-//                mPassword.setError("Password Must be >=6");
-//            }
-//            progressBar.setVisibility(View.VISIBLE);
-//
-//            model.all_users(new Model.UserCallBack() {
-//                @Override
-//                public void check_user(int exist) {
-//                    if(exist == 1){
-//                        startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-//                        finish();
-//                    }
-//                    else{
-//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                        finish();
-//                    }
-//                }
-//            });
-//            // authenticate
-//
-//
-//
-////            fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-////                Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-////                if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-////                    DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-////                    df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-////                        @Override
-////                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-////                            if(documentSnapshot.getString("isAdmin") != null){
-////                                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-////                                finish();
-////                            }
-////                            else if(documentSnapshot.getString("isStudent") != null){
-////                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-////                                finish();
-////                            }
-////                            else{
-////                                startActivity(new Intent(getApplicationContext(), Register.class));
-////                                finish();
-////                            }
-////                        }
-////                    }).addOnFailureListener(new OnFailureListener() {
-////                        @Override
-////                        public void onFailure(@NonNull Exception e) {
-////                            FirebaseAuth.getInstance().signOut();
-////                            startActivity(new Intent(getApplicationContext(), Login.class));
-////                        }
-////                    });
-////                }
-////                //checkUserAccessLevel(Objects.requireNonNull(authResult.getUser()).getUid());
-////            }).addOnFailureListener(e -> {
-////                Toast.makeText(Login.this, "Error" + e.getMessage(), Toast.LENGTH_SHORT).show();
-////                progressBar.setVisibility(View.GONE);
-////            });
-//
-//        });
-//
-//
-//        mCreateBtn.setOnClickListener(view -> {
-//            startActivity(new Intent(getApplicationContext(), Register.class));
-//            finish();
-//        });
-//
-//        forgotTextLink.setOnClickListener(view -> {
-//            EditText resetMail = new EditText(view.getContext());
-//            AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
-//            passwordResetDialog.setTitle("Reset Password?");
-//            passwordResetDialog.setMessage("Enter your email id to receive the reset link");
-//            passwordResetDialog.setView(resetMail);
-//            passwordResetDialog.setPositiveButton("Yes", (dialogInterface, i) -> {
-//                String mail = resetMail.getText().toString();
-//                fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(unused -> Toast.makeText(Login.this, "Reset Link has been sent to your email", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(Login.this, "Error ! No link has been sent" + e.getMessage(), Toast.LENGTH_SHORT).show());
-//            });
-//            passwordResetDialog.setNegativeButton("No", (dialogInterface, i) -> {
-//
-//            });
-//            passwordResetDialog.create().show();
-//        });
-//    }
 
 }
-

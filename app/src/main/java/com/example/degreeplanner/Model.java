@@ -1,7 +1,12 @@
 package com.example.degreeplanner;
 
-import android.content.Intent;
-import android.widget.Toast;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,27 +19,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
 public class Model extends AppCompatActivity implements Contract.Model {
-    public static Model.UserCallBack UserCallBack;
-    private FirebaseFirestore mDb = FirebaseFirestore.getInstance();
-    private Contract.Presenter presenter;
-
-    ArrayList<String> admin_emails = new ArrayList<>();
-    ArrayList<String> student_emails = new ArrayList<>();
-    FirebaseAuth fAuth = FirebaseAuth.getInstance();
-    //    Login l = new Login();
-    String email;
-    String pass;
-    static int number;
-
-    public interface UserCallBack {
-        int check_user(int exist);
-        boolean isUser(boolean u);
-    }
-
+    FirebaseAuth fAuth=FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mAuth;
+    //static boolean num;
+    Presenter presenter;
 
     public int login_btn(String email, String password) {
         System.out.println("ge");
@@ -96,80 +90,4 @@ public class Model extends AppCompatActivity implements Contract.Model {
 
 
     }
-
-
-
-
-    public void all_users(String email, String password, UserCallBack UserCallBack) {
-        System.out.println("gj0000000000ute");
-        System.out.println(email);
-        fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-            number=1;
-            System.out.println("gjgjyfhyeteyteute");
-            if (fAuth.getCurrentUser() != null) {
-                DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot document) {
-                        if (document != null) {
-                            if (document.getString("isAdmin") != null) {
-                                UserCallBack.check_user(1);
-                            }
-                            if (document.getString("isStudent") != null) {
-                                UserCallBack.check_user(2);
-
-                            }
-
-                        }
-                        System.out.println("hellooooo");
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        FirebaseAuth.getInstance().signOut();
-                        }
-                    });
-
-
-            }
-            UserCallBack.isUser(true);
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                UserCallBack.check_user(0);
-            }
-        });
-        System.out.println("the num = " + number);
-
-
-    }
-
-//    public void all_us(String email_str, String pass_str){
-//        all_users(email_str, pass_str,new Model.UserCallBack() {
-//            @Override
-//            public int check_user(int exist) {
-//                if (exist == 1){
-//                    return 1;
-//                }
-//                if(exist == 2){
-//                    return 2;
-//                }
-//                if(exist== 0){
-//                    return 0;
-//                }
-//                return -1;
-//            }
-//
-//            @Override
-//            public boolean isUser(boolean u) {
-//                if(u){
-//                    return true;
-//                }
-//                return false;
-//            }
-//
-//        });
-//    }
 }
