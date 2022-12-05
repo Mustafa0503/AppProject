@@ -1,6 +1,8 @@
 package com.example.degreeplanner;
 
 
+import android.text.TextUtils;
+
 public class Presenter implements Contract.Presenter {
     private Contract.Model model;
     public Contract.View2 view;
@@ -36,13 +38,13 @@ public class Presenter implements Contract.Presenter {
 
             @Override
             public void check_user(int exist) {
-                if (exist == 1 && isAdm(email_str)==1){
+                if (exist == 1){
                     System.out.println("admin xheck");
 
                     view.checkkk();
 
                 }
-                else if (exist == 2 && isAdm(email_str)==0){
+                if (exist == 2){
                     System.out.println("stu xheck");
 
                     view.checkkk22();
@@ -51,20 +53,13 @@ public class Presenter implements Contract.Presenter {
 
             }
 
-
-
-
-
         });
         if(Presenter.num== -1){
             System.out.println("hiiiiiiiiiii");
             view.toast_msg();
-
         }
-
-
-
     }
+
 
 
     public void msssssssssssssssssssg(){

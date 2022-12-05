@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class Model extends AppCompatActivity implements Contract.Model {
+    public static Model.UserCallBack UserCallBack;
     private FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private Contract.Presenter presenter;
 
@@ -26,6 +27,7 @@ public class Model extends AppCompatActivity implements Contract.Model {
     //    Login l = new Login();
     String email;
     String pass;
+    static int number;
 
     public interface UserCallBack {
         void check_user(int exist);
@@ -35,6 +37,7 @@ public class Model extends AppCompatActivity implements Contract.Model {
         System.out.println("gj0000000000ute");
         System.out.println(email);
         fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+            number=1;
             System.out.println("gjgjyfhyeteyteute");
             if (fAuth.getCurrentUser() != null) {
 //                FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -67,6 +70,8 @@ public class Model extends AppCompatActivity implements Contract.Model {
 
 //                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
         });
+        System.out.println("the num = " + number);
+
 
     }
 }
