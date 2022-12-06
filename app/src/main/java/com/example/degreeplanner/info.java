@@ -1,18 +1,15 @@
 package com.example.degreeplanner;
-
 import java.util.ArrayList;
-
 public class info {
-    ArrayList<String> offerSession;
-    ArrayList<String> pre;
+    String offerSession;
+    int year;
     String courseCode;
 
-    public info(){
+    public info(){}
 
-    }
-    public info(String courseCode, ArrayList<String> offerSession, ArrayList<String> pre) {
-        this.courseCode = courseCode;
+    public info(String offerSession, int year, String courseCode) {
         this.offerSession = offerSession;
-        this.pre = pre;
+        this.year = year;
+        this.courseCode = courseCode;
     }
 }

@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,14 +33,12 @@ public class Register extends AppCompatActivity {
     String userID;
     FirebaseFirestore fstore;
     CheckBox isAdminBox, isStudentBox;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+//        findAllC a = new findAllC();
+//        a.getAll();
         mFullname = findViewById(R.id.FullName);
         mEmail = findViewById(R.id.Email);
         mPassword = findViewById(R.id.password);
@@ -93,12 +92,6 @@ public class Register extends AppCompatActivity {
             if (password.length() < 6) {
                 mPassword.setError("Password must be more than 6");
             }
-            if (email.contains("student") && isAdminBox.isChecked()) {
-                mEmail.setError("Choose the checkbox corresponding to your email");
-            }
-            if (email.contains("admin") && isStudentBox.isChecked()) {
-                mEmail.setError("Choose the checkbox corresponding to your email");
-            }
 
             progressBar.setVisibility(View.VISIBLE);
 
@@ -135,6 +128,7 @@ public class Register extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             });
         });
-        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), View2.class)));
+        //mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
+        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
     }
 }

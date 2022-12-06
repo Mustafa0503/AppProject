@@ -10,14 +10,13 @@ import android.widget.ImageView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity2 extends AppCompatActivity {
-    Presenter pres;
 
     ImageView im, im2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        im=(ImageView) findViewById(R.id.imageButton);
+        im=(ImageView) findViewById(R.id.imageButton2);
         im.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,8 +38,13 @@ public class MainActivity2 extends AppCompatActivity {
 
     public void logoutAdmin(View view) {
         FirebaseAuth.getInstance().signOut();
-        Presenter.num=0;
-        startActivity(new Intent(getApplicationContext(), View2.class));
+        Presenter.num = 0;
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
+    }
+    public void pfForAdmin(View view){
+        Intent c1 = new Intent(this, pfpForAdmin.class);
+        startActivity(c1);
         finish();
     }
     public void test1(View view) {
@@ -49,7 +53,7 @@ public class MainActivity2 extends AppCompatActivity {
         finish();
     }
     public void openAsk(View view) {
-        Intent intent = new Intent(this, ProfilePage.class);
+        Intent intent = new Intent(this, pfpForAdmin.class);
         startActivity(intent);
         finish();
     }

@@ -43,7 +43,7 @@
         android:layout_height="160dp"
         android:background="#FFFFFF"
         android:contentDescription="@string/Prepwell"
-        android:onClick="openProfile"
+        android:onClick="pfForAdmin"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

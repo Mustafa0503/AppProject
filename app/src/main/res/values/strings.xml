@@ -56,9 +56,8 @@
     <string name="session">Session</string>
     <string name="year">Year</string>
     <string name="for_all">Session Offered</string>
-    <string name="mental">If you require immediate help, click the button for available resources.PrepWell</string>
+    <string name="add">Add Course</string>
     <string name="email_error">Email is required</string>
     <string name="pass_error">Password is Required</string>
     <string name="must_be">Password Must be >=6</string>
-
 </resources>

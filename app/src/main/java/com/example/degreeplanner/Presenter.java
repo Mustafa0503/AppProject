@@ -5,11 +5,11 @@ import android.text.TextUtils;
 
 public class Presenter implements Contract.Presenter {
     private Contract.Model model;
-    public Contract.View2 view;
-//    Model.UserCallBack CallBack;
+    public Contract.Login view;
+    //    Model.UserCallBack CallBack;
     static int num;
 
-    public Presenter(Contract.Model model, Contract.View2 view) {
+    public Presenter(Contract.Model model, Contract.Login view) {
         this.model = model;
         this.view = view;
     }
@@ -21,6 +21,7 @@ public class Presenter implements Contract.Presenter {
             view.showEmailError(R.string.email_error);
             return;
         }
+
         String password = view.get_pass();
         if (password.isEmpty()) {
             view.showPassError(R.string.pass_error);
@@ -40,8 +41,8 @@ public class Presenter implements Contract.Presenter {
             view.Student();
             return;
         }
-        //int n3 = model.login_btn(email, password);
-//        if(n3 == 0){
+//        int n3 = model.login_btn(email, password);
+//        if(n3 == 3){
 //            view.NO();
 //            return;
 //        }
@@ -96,6 +97,4 @@ public class Presenter implements Contract.Presenter {
 
 
 }
-
-
 
