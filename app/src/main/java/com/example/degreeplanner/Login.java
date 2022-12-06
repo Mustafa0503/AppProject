@@ -55,12 +55,8 @@
 //
 //    }
 //
-//
-//
 //    public void onClick(View view) {
-//        EditText email = (EditText) findViewById(R.id.Email);
-//        EditText pass = (EditText) findViewById(R.id.password);
-//
+//        presenter.onClick();
 //        String email_str = email.getText().toString().trim();
 //        String pass_str = pass.getText().toString().trim();
 //
@@ -70,23 +66,24 @@
 //                break;
 //
 //            case R.id.registerBtn:
-//                if (presenter.getInfo(email_str, pass_str) == "Email is required") {
-//                    email.setError("Email is required");
-//                    return;
-//                }
-//                if (presenter.getInfo(email_str, pass_str) == "Password is Required") {
-//                    pass.setError("Password is Required");
-//                    return;
-//                }
-//                if (presenter.getInfo(email_str, pass_str) == "Password Must be >=6") {
-//                    pass.setError("Password Must be >=6");
-//                    return;
-//                }
 //                progressBar.setVisibility(View.VISIBLE);
-////                presenter.all_u(email_str, pass_str);
+//                presenter.onClick();
 //                progressBar.setVisibility(View.GONE);
 //
 //        }
+//
+//        if(email_str.isEmpty()){
+//            email.setError(getString(R.string.email_error));
+//            return;
+//        }
+//        if(pass_str.isEmpty()){
+//            pass.setError(getString(R.string.pass_error));
+//            return;
+//        }
+//        if(pass_str.length() < 6){
+//            pass.setError(getString(R.string.must_be));
+//        }
+//
 //    }
 //
 //    @Override
@@ -98,19 +95,33 @@
 //
 //    @Override
 //    public void Student() {
-//        Toast.makeText(this,"Student Log In Success", Toast.LENGTH_SHORT).show();
 //        startActivity(new Intent(getApplicationContext(), MainActivity.class));
 //        finish();
+//        Toast.makeText(this,"Student Log In Success", Toast.LENGTH_SHORT).show();
 //    }
 //
 //    @Override
-//    public void NO(){
+//    public void NO() {
+//        startActivity(new Intent(getApplicationContext(), Login.class));
+//        finish();
 //        Toast.makeText(this,"Cannot Log in", Toast.LENGTH_SHORT).show();
 //    }
 //
 //    @Override
-//    public void toast_msg() {
+//    public void showEmailError(int id) {
+//        email.setError(getString(id));
 //    }
+//
+//    @Override
+//    public void showPassError(int id) {
+//        pass.setError(getString(id));
+//    }
+//    @Override
+//    public void lenPassError(int id) {
+//        pass.setError(getString(id));
+//    }
+//
+//}
 //
 //
 //
@@ -239,5 +250,5 @@
 ////        });
 ////    }
 //
-//}
+//
 //

@@ -1,13 +1,5 @@
 package com.example.degreeplanner;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
-import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,75 +11,122 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-public class Model extends AppCompatActivity implements Contract.Model {
-    FirebaseAuth fAuth=FirebaseAuth.getInstance();
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseAuth mAuth;
-    //static boolean num;
-    Presenter presenter;
+
+public class Model implements Contract.Model{
+
+    ArrayList<String> admin_emails = new ArrayList<>();
+    ArrayList<String> student_emails = new ArrayList<>();
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    UserCallBack userCallBack = null;
+    //    Login l = new Login();
+    String email;
+    String pass;
+
+
+    public interface UserCallBack{
+        int check_user(int exist);
+    }
+
+//    public int all_users(String email, String password, UserCallBack UserCallBack) {
+//        System.out.println("gj0000000000ute");
+//        System.out.println(email);
+//        fAuth = FirebaseAuth.getInstance();
+//        fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+//            System.out.println("gjgjyfhyeteyteute");
+//            if (fAuth.getCurrentUser() != null) {
+//                DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//                df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot document) {
+//                        if (document != null) {
+//                            if (document.getString("isAdmin") != null) {
+//                                 UserCallBack.check_user(1);
+//                            }
+//                            if (document.getString("isStudent") != null) {
+//                                 UserCallBack.check_user(2);
+//
+//                            }
+//
+//                        }
+//                        System.out.println("hellooooo");
+//
+//
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        FirebaseAuth.getInstance().signOut();
+//                    }
+//                });
+//
+//
+//            }
+//
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                UserCallBack.check_user(0);
+//            }
+//        });
+//
+//        return 0;
+//
+//    }
+
 
     public int login_btn(String email, String password) {
         System.out.println("ge");
-
         //fAuth.getCurrentUser();
         System.out.println("gj0000000000ute");
-        fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(authResult -> {
             System.out.println("gjgjyfhyeteyteute");
             if(fAuth.getCurrentUser()!=null) {
                 FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot document) {
-//                               if (task.isSuccessful()) {
-//                                   DocumentSnapshot document = task.getResult();
-                        if (document != null) {
-                            if (document.getString("isAdmin") != null) {
-                                //num=true;
-                                Presenter.num = 1;
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                                if (document.getString("isAdmin") != null) {
+                                    Presenter.num = 1;
+//                                    userCallBack.check_user(1);
+                                    System.out.println("num=1" + Presenter.num);
+                                } else if (document.getString("isStudent") != null) {
+                                    Presenter.num = 2;
+//                                    userCallBack.check_user(2);
+                                    System.out.println("num=2" + Presenter.num);
 
-//                                    startActivity(new Intent(Model.this, MainActivity2.class));
-//                                    finish();
-                                System.out.println("num=1" + Presenter.num);
-                            } else if (document.getString("isStudent") != null) {
-                                //num = false;
-                                Presenter.num = 2;
-                                System.out.println("num=2" + Presenter.num);
+                                }
 
                             }
-                            else{
-                                Presenter.num = -1;
-                            }
-
-
                         }
+
                     }
                 });
-
             }
 
-
         });
-        //FirebaseAuth.getInstance().signOut();
 
         //return num;
         if ( Presenter.num==1)
         {
             return 1;
         }
-        else if ( Presenter.num==2)
+        if ( Presenter.num==2)
         {
             return 2;
         }
-        else{
-            System.out.println("num= -1    " + Presenter.num);
-            return -1;
+        else
+        {
+            return 0;
         }
-
 
     }
 }
+
+
+

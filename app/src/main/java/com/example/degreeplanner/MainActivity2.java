@@ -17,7 +17,7 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        im=(ImageView) findViewById(R.id.imageButton2);
+        im=(ImageView) findViewById(R.id.imageButton);
         im.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,6 +39,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     public void logoutAdmin(View view) {
         FirebaseAuth.getInstance().signOut();
+        Presenter.num=0;
         startActivity(new Intent(getApplicationContext(), View2.class));
         finish();
     }

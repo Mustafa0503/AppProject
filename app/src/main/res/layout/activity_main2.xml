@@ -13,6 +13,7 @@
         android:layout_width="414dp"
         android:layout_height="166dp"
         android:background="@drawable/dashboard_header2"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -53,34 +54,18 @@
         app:srcCompat="@drawable/img_5" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="170dp"
-        android:layout_height="160dp"
-        android:background="#00000000"
-        android:contentDescription="Generate Timeline!"
-
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.422"
-        app:layout_constraintStart_toEndOf="@+id/profilebtn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.359"
-        app:srcCompat="@drawable/img_1" />
-
-    <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="170dp"
         android:layout_height="160dp"
         android:background="#FFFFFF"
-        android:onClick="error"
         android:contentDescription="Get some help"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:onClick="error"
+        app:layout_constraintBottom_toTopOf="@+id/logoutt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.644"
         app:layout_constraintStart_toEndOf="@+id/imageButton4"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
-        app:layout_constraintVertical_bias="0.067"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882"
         app:srcCompat="@drawable/helpimgbtn" />
 
     <ImageButton
@@ -129,6 +114,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.045" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="170dp"
+        android:layout_height="160dp"
+        android:background="#FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintStart_toEndOf="@+id/profilebtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.936"
+        app:srcCompat="@drawable/img_4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
