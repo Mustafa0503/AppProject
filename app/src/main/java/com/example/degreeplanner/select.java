@@ -24,8 +24,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -81,8 +83,6 @@ public class select extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         allC.add("Select all");
-
-
 
         //Query a = FirebaseFirestore.getInstance().collection("course").whereGreaterThan("Course Code", null);
 
@@ -214,7 +214,6 @@ public class select extends AppCompatActivity {
 
         //List<String> old =  (List<String>)fstore.collection("users").whereEqualTo("courses",userID).get();
 
-
         FirebaseFirestore.getInstance().collection("users")
                 .document(userID).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -248,6 +247,34 @@ public class select extends AppCompatActivity {
 
 
 
+//*************************************************************************************
+//        FirebaseFirestore.getInstance().collection("users")
+//                .document(userID).get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//                        DocumentSnapshot document = task.getResult();
+//                        List<String> old = (List<String>) document.get("courses");
+//                        if (!old.isEmpty())
+//                        {
+//
+//
+//                            for (int o = 0; o < old.size(); o++) {
+//                                if (!takenCourses.contains(old.get(o))) {
+//                                    takenCourses.add(old.get(o));
+//                                }
+//                            }
+//                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+//                            documentReference.update("courses", takenCourses);
+//
+//                        }else{
+//                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+//                            documentReference.update("courses",takenCourses);
+//                        }
+//                    }
+//                });
+// *********************************************************************************************
         //FirebaseFirestore fstore = FirebaseFirestore.getInstance();
 //        Map<String,Object> crs = new HashMap<>();
 //        crs.put("courses", takenCourses);
@@ -257,6 +284,105 @@ public class select extends AppCompatActivity {
        // fstore.collection("user").document("courses").set(crs, SetOptions.merge())
        // documentReference.set(crs);
         return super.onOptionsItemSelected(item);
+    }
+    public boolean checkPre(String target){
+//        FirebaseFirestore.getInstance().collection("course").whereEqualTo
+//                ("Course Code", target).get().addOnCompleteListener
+//                (new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+//                    DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+//                    String documentID=documentSnapshot.getId();
+//                    ArrayList<String> got = (ArrayList<String>)documentSnapshot.get("Prerequisites");
+//                    if(got.contains(target)){
+//
+//                    }
+//                }
+//            }
+//        });
+
+        FirebaseFirestore.getInstance().collection("users")
+                .document(userID).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot document = task.getResult();
+                        List<String> old = (List<String>) document.get("courses");
+                        //System.out.println("**************************1");
+                        if (!old.isEmpty())
+                        {
+                            for (int o = 0; o < old.size(); o++) {
+                                if (!takenCourses.isEmpty())
+                                {
+                                    //System.out.println(old.get(o));
+                                    if(!takenCourses.contains(old.get(o)))
+                                    {
+
+                                        System.out.println("_____ii______)");
+                                        for(int i=0;i<takenCourses.size();i++){
+                                            int finalO = o;
+                                            FirebaseFirestore.getInstance().collection("course").whereEqualTo
+                                                    ("Course Code", takenCourses.get(i)).get().addOnCompleteListener
+                                                    (new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                                DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                                                                String documentID=documentSnapshot.getId();
+                                                                ArrayList<String> pree = (ArrayList<String>)documentSnapshot.get("Prerequisites");
+                                                                int gg=0;
+                                                                for(int p=0;p<pree.size();p++)
+                                                                {
+                                                                    if(takenCourses.contains(pree.get(p))||old.contains(pree.get(p)))
+                                                                    {
+                                                                        System.out.println("**************************55");
+                                                                        takenCourses.add(old.get(finalO));
+                                                                    }
+                                                                    else{
+                                                                        gg++;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                                if(gg==0) {
+                                                                    for(int i1=0;i1<takenCourses.size();i1++)
+                                                                    {
+                                                                        for(int i2 = i1+1;i2<takenCourses.size();i2++)
+                                                                        {
+                                                                            if(takenCourses.get(i1)==takenCourses.get(i2))
+                                                                            {
+                                                                                takenCourses.remove(takenCourses.get(i2));
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    System.out.println("**************************2000");
+                                                                    DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+                                                                    documentReference.update("courses", takenCourses);
+                                                                }
+                                                                gg=0;
+                                                            }
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                    //if the on of the selected courses is already in academic history
+                                }
+                                //takenCourses.add(old.get(o));
+                            }
+
+
+                        }else{
+                            //When nothing is selected
+                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+                            documentReference.update("courses",takenCourses);
+                        }
+                    }
+                });
+
+
+        return true;
     }
     public void finish(View view) {
         Intent intent = new Intent(this, MainActivity.class);

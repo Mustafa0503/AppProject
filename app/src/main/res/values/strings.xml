@@ -60,5 +60,6 @@
     <string name="email_error">Email is required</string>
     <string name="pass_error">Password is Required</string>
     <string name="must_be">Password Must be >=6</string>
+    <string name="add">Add Course</string>
 
 </resources>

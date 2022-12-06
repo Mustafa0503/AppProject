@@ -21,6 +21,7 @@ public class Presenter implements Contract.Presenter {
             view.showEmailError(R.string.email_error);
             return;
         }
+
         String password = view.get_pass();
         if (password.isEmpty()) {
             view.showPassError(R.string.pass_error);
@@ -40,11 +41,11 @@ public class Presenter implements Contract.Presenter {
             view.Student();
             return;
         }
-        int n3 = model.login_btn(email, password);
-        if(n3 == 0){
-            view.NO();
-            return;
-        }
+//        int n3 = model.login_btn(email, password);
+//        if(n3 == 3){
+//            view.NO();
+//            return;
+//        }
 
 
 //        model.all_users(email, password, new Model.UserCallBack() {

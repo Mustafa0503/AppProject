@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, co
     }
 
     public void onClick(View view) {
-        presenter.onClick();
+        //presenter.onClick();
         String email_str = email.getText().toString().trim();
         String pass_str = pass.getText().toString().trim();
 
@@ -95,16 +95,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener, co
 
     @Override
     public void Student() {
+        Toast.makeText(this,"Student Log In Success", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
-        Toast.makeText(this,"Student Log In Success", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void NO() {
+        Toast.makeText(this,"Cannot Log in", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
-        Toast.makeText(this,"Cannot Log in", Toast.LENGTH_SHORT).show();
     }
 
     @Override

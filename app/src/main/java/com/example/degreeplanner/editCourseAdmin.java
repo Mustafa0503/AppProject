@@ -3,10 +3,11 @@ package com.example.degreeplanner;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+//import android.support.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -119,6 +121,38 @@ public class editCourseAdmin extends AppCompatActivity implements MultiSpinnerLi
 
                         }
                     });
+
+                    mDb.collection("course").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @SuppressLint("NewApi")
+                        @Override
+                        public void onComplete(@android.support.annotation.NonNull Task<QuerySnapshot> taskk) {
+                            //t
+                            if (taskk.isSuccessful()) {
+
+                                for (int i = 0; i < taskk.getResult().getDocuments().size(); i++) {
+                                    DocumentSnapshot documentSnapshot = taskk.getResult().getDocuments().get(i);
+                                    String documentID=documentSnapshot.getId();
+
+                                    ArrayList<String> preQ = (ArrayList<String>) documentSnapshot.get("Prerequisites");
+                                    if(preQ.contains(val)){
+                                        for(int kk=0; kk<preQ.size(); kk++){
+                                            if(preQ.get(kk).equals(val)){
+                                                preQ.set(kk, cod);
+                                            }
+                                        }
+                                    }
+
+                                    mDb.collection("course").document(documentID).update("Prerequisites", preQ);
+
+                                }
+
+                            } else {
+                                Log.d(TAG, "get failed with ", taskk.getException());
+                            }
+                        }
+                    });
+
+
                 }else {
                     Toast.makeText(editCourseAdmin.this, "Invalid Input", Toast.LENGTH_SHORT).show();
                 }
