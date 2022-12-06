@@ -2,6 +2,7 @@ package com.example.degreeplanner;
 
 import static android.content.ContentValues.TAG;
 
+//import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -265,13 +266,53 @@ public class line extends AppCompatActivity {
 
             LinkedHashMap<String ,ArrayList<String>> time = new LinkedHashMap<>();
 
+            int start = getDate();
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            int month = Calendar.getInstance().get(Calendar.MONTH);
 
-            for(int i=3; i<result.size()+3;i++)
-            {
-                time.put("202"+i + " Winter", new ArrayList<String>());
-                time.put("202"+i + " Summer", new ArrayList<String>());
-                time.put("202"+i + " Fall", new ArrayList<String>());
+            if(start==0){
+                year = year + 1;
+                for(int i=0; i<result.size();i++)
+                {
+                    year+=i;
+                    time.put((year) + " Winter", new ArrayList<String>());
+                    time.put((year) + " Summer", new ArrayList<String>());
+                    time.put((year) + " Fall", new ArrayList<String>());
+                }
+            } else if (start == 1){
+
+                if(month!=1){
+                    year=year+1;
+                }
+
+                for(int i=0; i<result.size();i++)
+                {
+                    time.put((year) + " Summer", new ArrayList<String>());
+                    time.put((year) + " Fall", new ArrayList<String>());
+                    year+=i;
+                    time.put((year) + " Winter", new ArrayList<String>());
+                }
+
+            } else {
+                year = year + 1;
+                for(int i=0; i<result.size();i++)
+                {
+                    //time.put((year+i) + " Winter", new ArrayList<String>());
+
+                    time.put((year) + " Fall", new ArrayList<String>());
+                    year+=i;
+                    time.put((year) + " Winter", new ArrayList<String>());
+                    time.put((year) + " Summer", new ArrayList<String>());
+                }
             }
+
+
+//            for(int i=3; i<result.size()+3;i++)
+//            {
+//                time.put("202"+i + " Winter", new ArrayList<String>());
+//                time.put("202"+i + " Summer", new ArrayList<String>());
+//                time.put("202"+i + " Fall", new ArrayList<String>());
+//            }
 
             ArrayList<String> takenCourses = new ArrayList<String>();
             empty = getSameTime(emptyy,result,result.size(),takenCourses);
