@@ -83,7 +83,7 @@ public class Model implements Contract.Model{
         fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(authResult -> {
             System.out.println("gjgjyfhyeteyteute");
             if(fAuth.getCurrentUser()!=null) {
-                FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                //FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 DocumentReference df = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
