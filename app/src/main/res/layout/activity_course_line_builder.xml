@@ -26,23 +26,33 @@
             android:hint="@string/select"
             android:inputType="none" />
 
+        <CheckBox
+            android:id="@+id/box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/im"
+            android:minHeight="48dp"
+            android:padding="5dp"
+            android:text="@string/add"
+            android:layout_marginLeft="5dp"
+            android:theme="@style/colored" />
+
+        <CheckBox
+            android:id="@+id/box2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/imcheckbox"
+            android:minHeight="48dp"
+            android:padding="5dp"
+            android:text="@string/unadd"
+            android:layout_marginLeft="5dp"
+            android:theme="@style/colored"
+
+            />
+
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
-        android:id="@+id/box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:button="@drawable/imcheckbox"
-        android:minHeight="48dp"
-        android:padding="5dp"
-        android:text="@string/add"
-
-        android:theme="@style/colored"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
-        app:layout_constraintLeft_toRightOf="@id/imageView2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"

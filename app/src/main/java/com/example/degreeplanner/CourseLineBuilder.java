@@ -82,6 +82,7 @@ public class CourseLineBuilder extends AppCompatActivity {
     public void makeDrop(){
         CheckBox check = findViewById(R.id.box);
         Button b = findViewById(R.id.button7);
+        CheckBox uncheck = findViewById(R.id.box2);
         autoCompleteTxt = findViewById(R.id.auto_complete_txt);
         adapterItems = new ArrayAdapter<String>(this, R.layout.list_course,courses);
         autoCompleteTxt.setAdapter(adapterItems);
@@ -89,8 +90,8 @@ public class CourseLineBuilder extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 course = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(getApplicationContext(),"Course: " + course,
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),"Course: " + course,
+//                        Toast.LENGTH_SHORT).show();
                 val=true;
             }
         });
@@ -107,7 +108,22 @@ public class CourseLineBuilder extends AppCompatActivity {
                 if(val && !selectedCourses.contains(course) && !course.equals("")){
                     check.setButtonTintList(ColorStateList.valueOf(Color.rgb(15,254,174)));
                     selectedCourses.add(course);
+                    Toast.makeText(getApplicationContext(),"Added: " + course, Toast.LENGTH_SHORT).show();
                     val=false;
+                }
+            }
+        });
+
+        uncheck.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(val && selectedCourses.contains(course) && !course.equals("")){
+                    selectedCourses.remove(course);
+                    Toast.makeText(getApplicationContext(),"Removed: " + course, Toast.LENGTH_SHORT).show();
+                    val=false;
+                } else {
+                    Toast.makeText(getApplicationContext(),"Invalid Request", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -138,6 +154,8 @@ public class CourseLineBuilder extends AppCompatActivity {
 
             }
         });
+
+
     }
 
 
