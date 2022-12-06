@@ -139,7 +139,12 @@ public class adminCourse extends AppCompatActivity implements MultiSpinnerListen
                             //sort course list
                             Collections.sort(courseList);
                         } else {
-                            courseList.remove(i);
+
+                            for (int j = 0; i < courseList.size(); j++) {
+                                if (courseList.get(j) == i) {
+                                    courseList.remove(j);
+                                }
+                            }
                         }
                     }
                 });
@@ -215,7 +220,7 @@ public class adminCourse extends AppCompatActivity implements MultiSpinnerListen
         sesh.add(1, "Fall");
         sesh.add(2, "Winter");
 
-        MultiSpinner multiSpinner = (MultiSpinner) findViewById(R.id.multi_spinner);
+        MultiSpinner multiSpinner = (MultiSpinner) findViewById(R.id.multi_Spinner);
         multiSpinner.setItems(sesh, getString(R.string.for_all), this);
 
         mDb.collection(COURSE).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
