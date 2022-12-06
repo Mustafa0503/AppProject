@@ -80,10 +80,9 @@ public class line extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
 
-        if (month >= 5 && month < 9) {
-            //starting fall
+        if (month >= 5 && (month <= 8 || (month == 9 && day <= 15))) {
             return 0;
-        } else if (month >= 9  && month <= 12 ) {
+        } else if ((month >= 9 && day > 15) && (month <= 12 || month == 1)) {
             return 1;
         } else {
             return 2;
@@ -267,7 +266,6 @@ public class line extends AppCompatActivity {
 
             LinkedHashMap<String ,ArrayList<String>> time = new LinkedHashMap<>();
 
-            //int start = getDate();
             int year = Calendar.getInstance().get(Calendar.YEAR);
             int month = Calendar.getInstance().get(Calendar.MONTH);
 

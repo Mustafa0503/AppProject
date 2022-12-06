@@ -173,7 +173,12 @@ public class editCourseAdmin extends AppCompatActivity implements MultiSpinnerLi
                             //sort course list
                             Collections.sort(courseList);
                         } else {
-                            courseList.remove(i);
+
+                            for (int j = 0; i < courseList.size(); j++) {
+                                if (courseList.get(j) == i) {
+                                    courseList.remove(j);
+                                }
+                            }
                         }
                     }
                 });
