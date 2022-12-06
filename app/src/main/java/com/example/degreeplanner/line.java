@@ -9,7 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+//import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.units.qual.A;
 
 import java.lang.reflect.Array;

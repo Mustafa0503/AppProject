@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -29,6 +30,18 @@ public class ProfilePage extends AppCompatActivity {
         setContentView(R.layout.activity_profile_page);
     }
     public void gg(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    public void mentalHealth(View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.utsc.utoronto.ca/home/mental-health-resources"));
+        startActivity(intent);
+        finish();
+    }
+
+
+    public void openAsk(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
