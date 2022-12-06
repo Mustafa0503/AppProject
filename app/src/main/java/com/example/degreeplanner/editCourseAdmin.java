@@ -125,7 +125,7 @@ public class editCourseAdmin extends AppCompatActivity implements MultiSpinnerLi
                     mDb.collection("course").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @SuppressLint("NewApi")
                         @Override
-                        public void onComplete(@android.support.annotation.NonNull Task<QuerySnapshot> taskk) {
+                        public void onComplete(@NonNull Task<QuerySnapshot> taskk) {
                             //t
                             if (taskk.isSuccessful()) {
 

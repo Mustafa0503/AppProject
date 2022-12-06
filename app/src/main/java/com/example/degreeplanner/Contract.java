@@ -7,7 +7,7 @@ public interface Contract {
     public interface Model{
         public int login_btn(String email, String password);
         //public int all_users(String email, String password, com.example.degreeplanner.Model.UserCallBack userCallBack);
-        }
+    }
 
     public interface Login {
         public String get_email();

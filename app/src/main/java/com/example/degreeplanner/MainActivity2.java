@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity2 extends AppCompatActivity {
-    Presenter pres;
 
     ImageView im, im2;
     @Override
@@ -39,7 +38,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     public void logoutAdmin(View view) {
         FirebaseAuth.getInstance().signOut();
-        Presenter.num=0;
+        Presenter.num = 0;
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }

@@ -6,7 +6,7 @@ import android.text.TextUtils;
 public class Presenter implements Contract.Presenter {
     private Contract.Model model;
     public Contract.Login view;
-//    Model.UserCallBack CallBack;
+    //    Model.UserCallBack CallBack;
     static int num;
 
     public Presenter(Contract.Model model, Contract.Login view) {
@@ -97,6 +97,4 @@ public class Presenter implements Contract.Presenter {
 
 
 }
-
-
 
