@@ -2,12 +2,11 @@ package com.example.degreeplanner;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.annotation.SuppressLint;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+import androidx.annotation.NonNull;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -123,10 +122,9 @@ public class editCourseAdmin extends AppCompatActivity implements MultiSpinnerLi
                     });
 
                     mDb.collection("course").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @SuppressLint("NewApi")
+
                         @Override
-                        public void onComplete(@android.support.annotation.NonNull Task<QuerySnapshot> taskk) {
-                            //t
+                        public void onComplete(@NonNull Task<QuerySnapshot> taskk) {
                             if (taskk.isSuccessful()) {
 
                                 for (int i = 0; i < taskk.getResult().getDocuments().size(); i++) {
@@ -149,6 +147,7 @@ public class editCourseAdmin extends AppCompatActivity implements MultiSpinnerLi
                             } else {
                                 Log.d(TAG, "get failed with ", taskk.getException());
                             }
+
                         }
                     });
 

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Login extends AppCompatActivity implements View.OnClickListener, com.example.degreeplanner.Contract.Login {
+public class Login extends AppCompatActivity implements View.OnClickListener, Contract.Login {
 
     private Contract.Presenter presenter;
     TextView mCreateBtn, forgotTextLink;
