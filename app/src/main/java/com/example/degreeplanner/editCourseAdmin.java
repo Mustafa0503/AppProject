@@ -3,11 +3,10 @@ package com.example.degreeplanner;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -123,9 +122,8 @@ public class editCourseAdmin extends AppCompatActivity implements MultiSpinnerLi
                     });
 
                     mDb.collection("course").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @SuppressLint("NewApi")
                         @Override
-                        public void onComplete(@android.support.annotation.NonNull Task<QuerySnapshot> taskk) {
+                        public void onComplete(@NonNull Task<QuerySnapshot> taskk) {
                             //t
                             if (taskk.isSuccessful()) {
 
